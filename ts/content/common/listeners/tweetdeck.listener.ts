@@ -12,8 +12,6 @@ export class TweetdeckListener extends BaseListener {
 
     const circle = element.querySelector(".js-progress-circle");
 
-    const textarea = element.querySelector("textarea");
-
     const sourceCounter = element.querySelector(".js-character-count");
 
     // create a new element to display counter
