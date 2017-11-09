@@ -7,7 +7,7 @@
   "private"     : false,
   "scripts"     : {
     "build": " webpack --config webpack.config.js",
-    "watch": " webpack --watch --config webpack.config.js "
+    "dev"  : " webpack --watch --config webpack.config.js "
   },
   "dependencies": {
     "@types/chrome"              : "^0.0.52",
