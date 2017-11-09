@@ -41,8 +41,5 @@
   ],
   "browser_action"  : {
     "default_title": "__MSG_ext_name__"
-  },
-  "permissions"     : [
-    "activeTab"
-  ]
+  }
 }
