@@ -1,12 +1,22 @@
-import {ListenerFactory} from "@/content/common/factory";
-import {ListenerKind} from "@/content/common/kinds";
+import { ListenerFactory } from "@/content/common/factory";
+import { ListenerKind } from "@/content/common/kinds";
 
 (() => {
 
-  const creator = new ListenerFactory();
+  /**
+   * Get saved options and run our factory.
+   */
+  chrome.storage.sync.get((items) => {
 
-  creator.add("[data-testid='tweet-textarea']", ListenerKind.Mobile);
+    const { limit = false } = { ...items };
 
-  creator.listen();
+    const creator = new ListenerFactory();
+    creator.notifyLimitation = limit;
+
+    creator.add("[data-testid='tweet-textarea']", ListenerKind.Mobile);
+
+    creator.listen();
+
+  });
 
 })();

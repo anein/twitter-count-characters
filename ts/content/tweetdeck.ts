@@ -3,13 +3,22 @@ import { ListenerKind } from "@/content/common/kinds";
 
 (() => {
 
-  const creator = new ListenerFactory();
+  /**
+   * Get saved options and run our factory.
+   */
+  chrome.storage.sync.get((items) => {
 
-  // compose block
-  creator.add(".compose .compose-text-container", ListenerKind.Tweetdeck);
-  // reply block
-  creator.add(".inline-reply .compose-text-container", ListenerKind.Tweetdeck);
+    const { limit = false } = { ...items };
 
-  creator.listen();
+    const creator = new ListenerFactory();
+    creator.notifyLimitation = limit;
+
+    creator.add(".compose .compose-text-container", ListenerKind.Tweetdeck);
+    // reply block
+    creator.add(".inline-reply .compose-text-container", ListenerKind.Tweetdeck);
+
+    creator.listen();
+
+  });
 
 })();

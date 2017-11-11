@@ -8,7 +8,7 @@ export class BaseListener implements IListener {
 
   public maxTweetLength: number;
 
-  public warnUser: boolean;
+  public notifyLimitation: boolean;
 
   public counter: HTMLElement;
 
@@ -45,11 +45,11 @@ export class BaseListener implements IListener {
     this.__timer = setInterval(() => {
 
       if (this.element && (!this.observer || !this.checkObserver)) {
-        // console.log("active counter");
+
         this.draw(this.element);
 
       } else if (this.element === null && this.observer) {
-        // console.log("disconnect and remove the observer");
+
         this.clearObserver();
       } else {
         // o_O, or for some other purposes
@@ -73,12 +73,18 @@ export class BaseListener implements IListener {
     return (this.maxTweetLength - length).toString();
   }
 
+  /**
+   * Clear timer if it was set.
+   */
   public clearTimer(): void {
     if (this.__timer) {
       clearInterval(this.__timer);
     }
   }
 
+  /**
+   * Clear observer object if it was set.
+   */
   public clearObserver(): void {
     if (this.observer) {
       this.observer.disconnect();
@@ -113,7 +119,7 @@ export class BaseListener implements IListener {
 
     this.counter.classList.remove(Style.WARN, Style.DANGER);
 
-    if (this.warnUser) {
+    if (this.notifyLimitation) {
 
       this.circle.classList.remove(Style.WARN, Style.DANGER);
 

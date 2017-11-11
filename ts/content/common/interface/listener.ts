@@ -17,14 +17,14 @@ export interface IListener {
    */
   circle: HTMLElement;
   /**
-   * Default length of the standard tweets
+   * Default length of the standard tweet
    */
   maxTweetLength: number;
 
   /**
    *
    */
-  warnUser: boolean;
+  notifyLimitation: boolean;
 
   /**
    * Initialises listener by calling setInterval method to check if element exists in DOM,

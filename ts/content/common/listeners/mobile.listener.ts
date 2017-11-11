@@ -15,7 +15,6 @@ export class MobileListener extends BaseListener {
 
     const circles = progressbar.getElementsByTagName("circle");
 
-    // to catch changes
     this.circle = circles[ 1 ];
 
     // get color for text
@@ -35,7 +34,7 @@ export class MobileListener extends BaseListener {
 
     this.setLengthAndStyles(element.textLength);
 
-    // set observer to listen the changes of textarea.
+    // set observer to listen the changes of textarea
     this.observer = new MutationObserver(() => {
 
       const length = element.textLength;
