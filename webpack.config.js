@@ -10,11 +10,10 @@ module.exports = function () {
     target: "web",
 
     entry: {
-      "background": helpers.root("ts/", "background.ts"),
-      "popup"     : helpers.root("ts/", "popup.ts"),
-      "tweetdeck" : helpers.root("ts/content", "tweetdeck.ts"),
-      "mobile"    : helpers.root("ts/content", "mobile.ts"),
-      "web"       : helpers.root("ts/content", "web.ts")
+      "popup"    : helpers.root("ts/", "popup.ts"),
+      "tweetdeck": helpers.root("ts/content", "tweetdeck.ts"),
+      "mobile"   : helpers.root("ts/content", "mobile.ts"),
+      "web"      : helpers.root("ts/content", "web.ts")
     },
 
     output: {
@@ -53,6 +52,9 @@ module.exports = function () {
       new plugins.ExternalsPlugin({
         type   : 'commonjs',
         include: __dirname + '/node_modules'
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {warnings: false}
       }),
       /**
        * Plugin: CopyWebpackPlugin
