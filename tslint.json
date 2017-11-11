@@ -9,6 +9,7 @@
       true,
       "double"
     ],
+    "no-bitwise"              : false,
     "variable-name"           : false,
     "indent"                  : [
       true

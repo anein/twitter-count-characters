@@ -8,11 +8,23 @@ export interface IListener {
    * DOM query expression, e.g. `.my-class`
    */
   query: string;
-
+  /**
+   * Stores the counter box
+   */
+  counter: HTMLElement;
+  /**
+   * Stores the circle indicator
+   */
+  circle: HTMLElement;
   /**
    * Default length of the standard tweets
    */
   maxTweetLength: number;
+
+  /**
+   *
+   */
+  warnUser: boolean;
 
   /**
    * Initialises listener by calling setInterval method to check if element exists in DOM,
@@ -21,8 +33,18 @@ export interface IListener {
   listen: () => void;
 
   /**
-   * Draws the counter and attaches observer to it.
+   * Draws the counter and attaches observer to it
    */
   draw: (element: HTMLElement) => void;
+
+  /**
+   * Stops setInterval
+   */
+  clearTimer: () => void;
+
+  /**
+   * Disconnects the observer from element
+   */
+  clearObserver: () => void;
 
 }

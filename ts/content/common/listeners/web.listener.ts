@@ -1,47 +1,46 @@
+import { Selector } from "@/content/common/constants/selectors";
+import { Style } from "@/content/common/constants/styles";
 import { BaseListener } from "./base.listener";
 
 export class WebListener extends BaseListener {
-
-  // public initialContentLength: number = 0;
 
   public draw(element: any): void {
 
     let initialContentLength = 0;
 
-    // to catch changes
-    const circle = element.querySelector(".js-progress-circle");
-    // counter box
-    const counter = element.querySelector(".tweet-counter");
-    // get a tweet box to understand if there was a saved text or not.
-    const tweetBox = element.querySelector(".tweet-box.rich-editor");
-    //
-    const textarea = element.querySelector("textarea");
+    // get a circle indicator
+    this.circle = element.getElementsByClassName(Selector.CIRCLE)[ 0 ] as HTMLElement;
 
-    if (tweetBox) {
-      initialContentLength = tweetBox.textContent.length;
-    }
+    // source box
+    const sourceCounter = element.getElementsByClassName(Selector.COUNTDOWN_COUNTER)[ 0 ] as any;
+
+    // get a tweet box to understand if there was a saved text or not,
+    // and to catch changes.
+    const tweetBox = element.querySelector(Selector.BOX_EDITOR);
+
+    // to observe text length
+    const textarea = element.getElementsByTagName(Selector.TEXTAREA)[ 0 ];
+
+    this.counter = sourceCounter.cloneNode(false);
+    this.counter.classList.remove(Style.T_REACHED);
+
+    initialContentLength = (textarea.textLength === 0) ? tweetBox.textContent.length : textarea.textLength;
+
+    // insert our counter before the source counter, and remove the last.
+    sourceCounter.parentElement.insertBefore(this.counter, sourceCounter);
+    sourceCounter.remove();
 
     // set initial length
-    counter.innerText = this.calculateLength(initialContentLength);
+    this.setLengthAndStyles(initialContentLength);
 
     // set observer to listen the changes of text.
-    // TODO: optimise.
-    this.observer = new MutationObserver((mutations) => {
-      let textLength = textarea.textLength;
+    this.observer = new MutationObserver(() => {
 
-      if (textLength === 0 && tweetBox) {
-        textLength = tweetBox.textContent.length;
-      }
-
-      const characterLength = this.calculateLength(textLength);
-
-      if (parseInt(characterLength, 10) > 20) {
-        counter.innerText = characterLength;
-      }
+      this.setLengthAndStyles(textarea.textLength);
 
     });
 
-    this.observer.observe(circle, { attributes: true });
+    this.observer.observe(tweetBox, { attributes: true, childList: true, subtree: true });
 
   }
 

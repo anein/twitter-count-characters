@@ -6,35 +6,37 @@ const helpers = require('./config/helpers.methods');
 module.exports = function () {
 
   return {
-    cache: false,
+    cache : false,
     target: "web",
 
     entry: {
-      "tweetdeck": helpers.root("ts/content", "tweetdeck.ts"),
-      "mobile": helpers.root("ts/content", "mobile.ts"),
-      "web": helpers.root("ts/content", "web.ts")
+      "background": helpers.root("ts/", "background.ts"),
+      "popup"     : helpers.root("ts/", "popup.ts"),
+      "tweetdeck" : helpers.root("ts/content", "tweetdeck.ts"),
+      "mobile"    : helpers.root("ts/content", "mobile.ts"),
+      "web"       : helpers.root("ts/content", "web.ts")
     },
 
     output: {
-      "path": helpers.root('build/'),
-      "filename": "js/[name].js",
+      "path"         : helpers.root('build/'),
+      "filename"     : "js/[name].js",
       "chunkFilename": "js/[id].js"
     },
 
     resolve: {
       extensions: ['.ts'],
       // remove other default values
-      modules: ['node_modules'],
-      alias: {
+      modules   : ['node_modules'],
+      alias     : {
         '@': helpers.root('ts/')
       }
     },
 
-    module: {
+    module : {
       loaders: [
         {
-          test: /\.ts$/,
-          use: "ts-loader",
+          test   : /\.ts$/,
+          use    : "ts-loader",
           exclude: [/\.(spec|e2e)\.ts$/]
         }
       ]
@@ -49,7 +51,7 @@ module.exports = function () {
        * Defines externals.
        */
       new plugins.ExternalsPlugin({
-        type: 'commonjs',
+        type   : 'commonjs',
         include: __dirname + '/node_modules'
       }),
       /**
@@ -63,12 +65,11 @@ module.exports = function () {
         {
           from: "img", to: "img"
         },
-        // {
-        //     from: "css", to: "css"
-        // },
-        // {
-        //     from: 'html', to: "html"
-        // },
+        {
+          from: 'html', to: "html"
+        }, {
+          from: 'css', to: "css"
+        },
         {
           from: '_locales', to: "_locales"
         }], {
@@ -79,20 +80,20 @@ module.exports = function () {
       })
     ],
     profile: true,
-    stats: {
-      hash: true,
-      version: true,
-      timings: true,
-      assets: true,
-      chunks: true,
-      modules: true,
-      reasons: true,
-      children: true,
-      source: true,
-      errors: true,
+    stats  : {
+      hash        : true,
+      version     : true,
+      timings     : true,
+      assets      : true,
+      chunks      : true,
+      modules     : true,
+      reasons     : true,
+      children    : true,
+      source      : true,
+      errors      : true,
       errorDetails: true,
-      warnings: true,
-      publicPath: true
+      warnings    : true,
+      publicPath  : true
     }
   }
 

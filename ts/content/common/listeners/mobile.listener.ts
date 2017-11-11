@@ -1,41 +1,61 @@
+import { Selector } from "@/content/common/constants/selectors";
+import { Style } from "@/content/common/constants/styles";
 import { BaseListener } from "./base.listener";
 
 export class MobileListener extends BaseListener {
 
+  public circle: any;
+
   public draw(element: any) {
 
     // get progress bar as a basic element
-    const progressbar = document.querySelectorAll("[role='progressbar']")[ 1 ];
+    const progressbar = document.querySelectorAll(Selector.PROGRESSBAR)[ 1 ];
+
+    const parent = progressbar.parentElement;
+
+    const circles = progressbar.getElementsByTagName("circle");
 
     // to catch changes
-    const circle = progressbar.querySelectorAll("circle")[ 1 ];
+    this.circle = circles[ 1 ];
 
     // get color for text
-    const color = progressbar.querySelectorAll("circle")[ 0 ].getAttribute("stroke");
+    const color = circles[ 0 ].getAttribute("stroke");
 
-    // create default counter with initial length.
-    const counter = document.createElement("div");
-    counter.classList.add("visible-counter");
-    counter.style.color = color;
-    counter.innerText = this.calculateLength(element.textLength);
+    // get or create a default counter.
 
-    progressbar.parentElement.insertBefore(counter, progressbar);
+    this.counter = document.getElementById(Selector.COUNTER);
+
+    if (!this.counter) {
+      this.counter = document.createElement("div");
+      this.counter.id = Selector.COUNTER;
+      this.counter.style.color = color;
+    }
+
+    parent.insertBefore(this.counter, progressbar);
+
+    this.setLengthAndStyles(element.textLength);
 
     // set observer to listen the changes of textarea.
-    this.observer = new MutationObserver((mutations) => {
+    this.observer = new MutationObserver(() => {
 
-      const characterLength = this.calculateLength(element.textLength);
+      const length = element.textLength;
 
-      if (parseInt(characterLength, 10) <= 20) {
-        counter.style.display = "none";
-      } else {
-        counter.style.display = "inline";
-        counter.innerText = characterLength.toString();
+      // prevent creating a twitter counter. Damned ReactJS. ^_^
+      if (length >= 260) {
+
+        const item = Array.from(parent.children).filter((e: any) => !!e.dir);
+
+        if (item.length > 0) {
+          item[ 0 ].remove();
+        }
+
       }
+
+      this.setLengthAndStyles(length);
 
     });
 
-    this.observer.observe(circle, { attributes: true });
+    this.observer.observe(element, { childList: true });
 
   }
 

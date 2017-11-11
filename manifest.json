@@ -18,6 +18,9 @@
       "js"     : [
         "js/tweetdeck.js"
       ],
+      "css"    : [
+        "css/content.css"
+      ],
       "run_at" : "document_end"
     },
     {
@@ -26,6 +29,9 @@
       ],
       "js"     : [
         "js/mobile.js"
+      ],
+      "css"    : [
+        "css/content.css"
       ],
       "run_at" : "document_end"
     },
@@ -36,10 +42,15 @@
       "js"     : [
         "js/web.js"
       ],
+      "css"    : [
+        "css/content.css"
+      ],
       "run_at" : "document_end"
     }
   ],
+
   "browser_action"  : {
-    "default_title": "__MSG_ext_name__"
+    "default_title": "__MSG_ext_name__",
+    "default_popup": "html/popup.html"
   }
 }

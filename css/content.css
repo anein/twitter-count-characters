@@ -1,0 +1,13 @@
+.is-warn {
+  color: rgb(255, 173, 31) !important;
+  stroke: rgb(255, 173, 31) !important;
+}
+
+.is-danger {
+  color: #e0245e !important;
+  stroke: #e0245e !important;
+}
+
+.hide {
+  display: none !important;
+}
