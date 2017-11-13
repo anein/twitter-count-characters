@@ -1,9 +1,12 @@
 {
   "ext_name"       : {
-    "message": "Tweet: The character counter"
+    "message": " Old School Twitter"
+  },
+  "ext_short_name" : {
+    "message": "280/140 character counter for tweets"
   },
   "ext_description": {
-    "message": "Displays the remaining number of characters that you can squeeze into a tweet"
+    "message": "Restores 140 character limit and more."
   },
   "ext_author"     : {
     "message": "Alexander Ein (@AlexanderEin)"
