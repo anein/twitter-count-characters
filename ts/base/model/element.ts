@@ -36,7 +36,6 @@ export class Element implements IElement {
   }
 
   public clear(...additilaClasses: string[]): void {
-    console.log(this.element);
     this.element.classList.remove(Style.WARN, Style.DANGER, ...additilaClasses);
   }
 

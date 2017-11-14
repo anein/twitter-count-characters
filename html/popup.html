@@ -1,29 +1,59 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Tweet: Options</title>
   <link rel="stylesheet" href="../css/popup.css">
 </head>
+
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <div class="option-item">
-    <div>Warning of 140 character limit</div>
+    <!-- old school mode -->
+    <div class="grid">
+
+      <div class="option-item">
+        <b>Old School Mode</b>
+      </div>
+
+      <div class="onoffswitch">
+        <input type="checkbox" name="tweet.mode" class="onoffswitch-checkbox" id="tweet.mode" checked>
+        <label class="onoffswitch-label" for="tweet.mode"></label>
+      </div>
+
+    </div>
+
+    <hr />
+
+    <div class="grid non-mode">
+
+      <div class="option-item">
+        Warning of 140 character limit
+      </div>
+
+      <div class="onoffswitch">
+        <input type="checkbox" name="tweet.limit" class="onoffswitch-checkbox" id="tweet.limit">
+        <label class="onoffswitch-label" for="tweet.limit"></label>
+      </div>
+
+      <div class="option-item">
+        Hide circles
+      </div>
+
+      <div class="onoffswitch">
+        <input type="checkbox" name="tweet.circles" class="onoffswitch-checkbox" id="tweet.circles">
+        <label class="onoffswitch-label" for="tweet.circles"></label>
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="onoffswitch">
-    <input type="checkbox" name="tweet.limit" class="onoffswitch-checkbox" id="tweet.limit">
-    <label class="onoffswitch-label" for="tweet.limit"></label>
-  </div>
-
-
-</div>
-
-<script src="../js/popup.js"></script>
+  <script src="../js/popup.js"></script>
 </body>
+
 </html>

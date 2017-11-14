@@ -1,22 +1,52 @@
+:root {
+  --color-text: rgba(0, 0, 0, 0.8);
+  --color-background: whitesmoke;
+  --color-option-active: #28a745;
+}
+
 html, body {
-  background: whitesmoke;
+  background: var(--color-background)
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 100px 60px;
-  grid-column-gap: 2px;
   padding: 6px;
 }
 
-.option-item {
-  color: rgba(0, 0, 0, 0.8);
+hr {
+  margin: 10px 0;
 }
 
+input[disabled]{
+  cursor: default;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 150px 60px;
+  grid-template-rows: 100%;
+  grid-column-gap: 2px;
+  grid-row-gap: 10px;
+  align-items: center;
+}
+
+.grid.disabled {
+  opacity: 0.5;
+}
+
+.disabled .onoffswitch-label{
+  cursor: default;
+}
+
+.option-item {
+  color: var(--color-text)
+}
+
+
+
 .onoffswitch {
-  float: right;
   position: relative;
-  width: 50px;
+  width: 40px;
+  margin: 0 auto;
 }
 
 .onoffswitch-checkbox {
@@ -27,11 +57,11 @@ html, body {
   display: block;
   overflow: hidden;
   cursor: pointer;
-  height: 20px;
+  height: 14px;
   padding: 0;
-  line-height: 20px;
+  line-height: 14px;
   border: 2px solid rgb(153, 153, 153);
-  border-radius: 20px;
+  border-radius: 14px;
   background-color: #EEEEEE;
   transition: background-color 0.3s ease-in;
 }
@@ -39,25 +69,25 @@ html, body {
 .onoffswitch-label:before {
   content: "";
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 14px;
+  height: 14px;
   margin: 0px;
   background: #FFFFFF;
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 28px;
+  right: 22px;
   border: 2px solid #999999;
-  border-radius: 20px;
+  border-radius: 14px;
   transition: all 0.3s ease-in 0s;
 }
 
 .onoffswitch-checkbox:checked + .onoffswitch-label {
-  background-color: #28a745;
+  background-color: var(--color-option-active);
 }
 
 .onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before {
-  border-color: #28a745;
+  border-color: var(--color-option-active);
 }
 
 .onoffswitch-checkbox:checked + .onoffswitch-label:before {
