@@ -1,10 +1,11 @@
+import { Composite } from "@/base/composite";
+import { Circle } from "@/base/model/circle";
+import { Counter } from "@/base/model/counter";
 import { Selector } from "@/content/common/constants/selectors";
 import { Style } from "@/content/common/constants/styles";
 import { BaseListener } from "./base.listener";
 
 export class MobileListener extends BaseListener {
-
-  public circle: any;
 
   public draw(element: any) {
 
@@ -15,22 +16,21 @@ export class MobileListener extends BaseListener {
 
     const circles = progressbar.getElementsByTagName("circle");
 
-    this.circle = circles[ 1 ];
-
     // get color for text
     const color = circles[ 0 ].getAttribute("stroke");
 
+    const circle = new Circle(circles[ 1 ]);
+
     // get or create a default counter.
+    const counter = new Counter(document.getElementById(Selector.COUNTER));
 
-    this.counter = document.getElementById(Selector.COUNTER);
-
-    if (!this.counter) {
-      this.counter = document.createElement("div");
-      this.counter.id = Selector.COUNTER;
-      this.counter.style.color = color;
+    if (!counter.notEmpty()) {
+      counter.create(Selector.COUNTER, color);
     }
 
-    parent.insertBefore(this.counter, progressbar);
+    parent.insertBefore(counter.get(), progressbar);
+
+    this.controlElements.add(circle, counter);
 
     this.setLengthAndStyles(element.textLength);
 

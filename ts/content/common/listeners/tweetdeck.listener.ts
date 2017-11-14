@@ -1,3 +1,5 @@
+import { Circle } from "@/base/model/circle";
+import { Counter } from "@/base/model/counter";
 import { Limit } from "@/content/common/constants/limits";
 import { Selector } from "@/content/common/constants/selectors";
 import { Style } from "@/content/common/constants/styles";
@@ -9,31 +11,32 @@ export class TweetdeckListener extends BaseListener {
 
   public draw(element: HTMLElement): void {
 
-    const counter = element.getElementsByClassName(Selector.COUNTER);
+    let counter = new Counter(element.getElementsByClassName(Selector.COUNTER)[ 0 ]);
 
-    if (counter.length > 0 && this.counter) {
+    if (counter.notEmpty() && this.controlElements.notEmpty()) {
       return;
     }
 
     const textarea = element.getElementsByTagName(Selector.TEXTAREA)[ 0 ] as any;
 
-    const sourceCounter = element.getElementsByClassName(Selector.SOURCE_COUNTER)[ 0 ] as HTMLElement;
+    const sourceCounter = new Counter(element.getElementsByClassName(Selector.SOURCE_COUNTER)[ 0 ]);
 
-    this.circle = element.getElementsByClassName(Selector.CIRCLE)[ 0 ] as HTMLElement;
+    const circle = new Circle(element.getElementsByClassName(Selector.CIRCLE)[ 0 ]);
 
     // get or create a new element to display our awesome counter
-    this.counter = element.getElementsByClassName(Selector.COUNTER)[ 0 ] as HTMLElement;
+    if (!counter.notEmpty()) {
 
-    if (!this.counter) {
-      this.counter = sourceCounter.cloneNode(true) as HTMLSpanElement;
-      this.counter.classList.add(Selector.COUNTER);
-      this.counter.classList.remove(Selector.SOURCE_COUNTER, Style.T_HIDE, Style.T_RED);
+      counter = new Counter(sourceCounter.clone());
+      counter.addStyle(Selector.COUNTER);
+      counter.clear(Selector.SOURCE_COUNTER, Style.T_HIDE, Style.T_RED);
 
-      sourceCounter.classList.add(Style.HIDE);
-      sourceCounter.parentElement.appendChild(this.counter);
+      sourceCounter.hide();
+      sourceCounter.get().parentElement.appendChild(counter.get());
     }
 
-    const length = (textarea.textLength === 0) ? (Limit.LONG - ~~sourceCounter.textContent) : textarea.textLength;
+    this.controlElements.add(counter, circle);
+
+    const length = (textarea.textLength === 0) ? (Limit.LONG - sourceCounter.length()) : textarea.textLength;
 
     this.setLengthAndStyles(length);
 
@@ -47,7 +50,7 @@ export class TweetdeckListener extends BaseListener {
 
     });
 
-    this.observer.observe(sourceCounter, { childList: true, subtree: true });
+    this.observer.observe(sourceCounter.get(), { childList: true, subtree: true });
 
   }
 

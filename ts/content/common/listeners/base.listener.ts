@@ -1,3 +1,6 @@
+import { Composite } from "@/base/composite";
+import { Circle } from "@/base/model/circle";
+import { IElement } from "@/base/model/interface/element";
 import { Style } from "@/content/common/constants/styles";
 import { IListener } from "@/content/common/interface/listener";
 
@@ -10,9 +13,7 @@ export class BaseListener implements IListener {
 
   public notifyLimitation: boolean;
 
-  public counter: HTMLElement;
-
-  public circle: HTMLElement;
+  public controlElements: Composite = new Composite();
 
   // attached observer
   protected observer: MutationObserver = null;
@@ -101,7 +102,7 @@ export class BaseListener implements IListener {
 
     const remainingLength = this.calculateLength(length);
 
-    this.counter.innerText = remainingLength;
+    this.controlElements.setText(remainingLength);
 
     this.setStyles(~~remainingLength);
 
@@ -117,35 +118,28 @@ export class BaseListener implements IListener {
    */
   protected setStyles(length: number) {
 
-    this.counter.classList.remove(Style.WARN, Style.DANGER);
-
     if (this.notifyLimitation) {
-
-      this.circle.classList.remove(Style.WARN, Style.DANGER);
 
       if (length > -this.maxTweetLength && length <= 0) {
 
-        this.circle.classList.add(Style.WARN);
-        this.counter.classList.add(Style.WARN);
+        this.controlElements.warn();
 
         if (length === 0) {
-          this.circle.classList.add(Style.T_PULSE, Style.T_A_PULSE);
+          this.controlElements.pulse();
         }
-      } else if (length <= -this.maxTweetLength) {
-        this.circle.classList.add(Style.DANGER);
-        this.counter.classList.add(Style.DANGER);
-      }
 
+      } else if (length <= -this.maxTweetLength) {
+        this.controlElements.danger();
+      } else {
+        this.controlElements.clear();
+      }
     } else {
       if (length > 20) {
-        this.circle.classList.remove(Style.WARN, Style.DANGER, Style.T_PULSE, Style.T_A_PULSE);
-        this.counter.classList.remove(Style.WARN, Style.DANGER);
+        this.controlElements.clear();
       } else if (length > 0 && length <= 20) {
-        this.counter.classList.add(Style.WARN);
-        this.circle.classList.remove(Style.DANGER);
+        this.controlElements.warn();
       } else {
-        this.counter.classList.add(Style.DANGER);
-        this.circle.classList.remove(Style.WARN);
+        this.controlElements.danger();
       }
     }
 

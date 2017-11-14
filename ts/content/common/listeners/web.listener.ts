@@ -1,3 +1,5 @@
+import { Circle } from "@/base/model/circle";
+import { Counter } from "@/base/model/counter";
 import { Selector } from "@/content/common/constants/selectors";
 import { Style } from "@/content/common/constants/styles";
 import { BaseListener } from "./base.listener";
@@ -9,10 +11,10 @@ export class WebListener extends BaseListener {
     let initialContentLength = 0;
 
     // get a circle indicator
-    this.circle = element.getElementsByClassName(Selector.CIRCLE)[ 0 ] as HTMLElement;
+    const circle = new Circle(element.getElementsByClassName(Selector.CIRCLE)[ 0 ]);
 
     // source box
-    const sourceCounter = element.getElementsByClassName(Selector.COUNTDOWN_COUNTER)[ 0 ] as any;
+    const sourceCounter = new Counter(element.getElementsByClassName(Selector.COUNTDOWN_COUNTER)[ 0 ]);
 
     // get a tweet box to understand if there was a saved text or not,
     // and to catch changes.
@@ -21,14 +23,16 @@ export class WebListener extends BaseListener {
     // to observe text length
     const textarea = element.getElementsByTagName(Selector.TEXTAREA)[ 0 ];
 
-    this.counter = sourceCounter.cloneNode(false);
-    this.counter.classList.remove(Style.T_REACHED);
-
-    initialContentLength = (textarea.textLength === 0) ? tweetBox.textContent.length : textarea.textLength;
+    const counter = new Counter(sourceCounter.clone());
+    counter.clear(Style.T_REACHED);
 
     // insert our counter before the source counter, and remove the last.
-    sourceCounter.parentElement.insertBefore(this.counter, sourceCounter);
-    sourceCounter.remove();
+    sourceCounter.get().parentElement.insertBefore(counter.get(), sourceCounter.get());
+    sourceCounter.get().remove();
+
+    this.controlElements.add(circle, counter);
+
+    initialContentLength = (textarea.textLength === 0) ? tweetBox.textContent.length : textarea.textLength;
 
     // set initial length
     this.setLengthAndStyles(initialContentLength);

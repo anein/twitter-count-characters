@@ -1,3 +1,5 @@
+import { IElement } from "@/base/model/interface/element";
+
 export interface IListener {
 
   /**
@@ -11,11 +13,11 @@ export interface IListener {
   /**
    * Stores the counter box
    */
-  counter: HTMLElement;
+  // counter: IElement;
   /**
    * Stores the circle indicator
    */
-  circle: HTMLElement;
+  // circle: IElement;
   /**
    * Default length of the standard tweet
    */
