@@ -5,6 +5,9 @@ import { Style } from "@/content/common/constants/styles";
 export class Element implements IElement {
 
   constructor(public element: HTMLElement | any) {
+    if (this.element) {
+      this.show();
+    }
 
   }
 
@@ -44,6 +47,14 @@ export class Element implements IElement {
   }
 
   public setText(value: string): void {
+    //
+  }
+
+  public disable(): void {
+    //
+  }
+
+  public enable(): void {
     //
   }
 

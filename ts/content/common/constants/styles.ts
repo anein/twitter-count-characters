@@ -7,4 +7,5 @@ export enum Style {
   T_RED = "txt-twitter-red",
   T_HIDE = "is-hidden",
   HIDE = "hide",
+  DISABLE = "is-disabled",
 }

@@ -1,3 +1,4 @@
+import { IOptions } from "@/base/interface/options";
 import { ListenerFactory } from "@/content/common/factory";
 import { ListenerKind } from "@/content/common/kinds";
 
@@ -6,12 +7,12 @@ import { ListenerKind } from "@/content/common/kinds";
   /**
    * Get saved options and run our factory.
    */
-  chrome.storage.sync.get((items) => {
+  chrome.storage.sync.get((items: IOptions) => {
 
-    const { limit = false } = { ...items };
+    const { limit = false, mode = true, circle = false } = { ...items };
 
     const creator = new ListenerFactory();
-    creator.notifyLimitation = limit;
+    creator.options = { limit, mode, circle };
 
     creator.add("[data-testid='tweet-textarea']", ListenerKind.Mobile);
 

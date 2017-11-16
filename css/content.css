@@ -11,3 +11,13 @@
 .hide {
   display: none !important;
 }
+
+.is-disabled{
+  opacity: 0.5;
+  cursor: default !important;
+}
+
+button.is-disabled{
+  opacity: 0.3;
+  cursor: not-allowed !important;
+}

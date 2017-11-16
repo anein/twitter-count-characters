@@ -75,6 +75,18 @@ export class Composite implements IElement {
     }
   }
 
+  public disable(): void {
+    for (const element of this.children) {
+      element.disable();
+    }
+  }
+
+  public enable(): void {
+    for (const element of this.children) {
+      element.enable();
+    }
+  }
+
   /**
    * Calls the `clear` method of children
    */

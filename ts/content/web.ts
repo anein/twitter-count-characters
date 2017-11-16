@@ -1,4 +1,5 @@
 import { IMessage } from "@/base/interface/message";
+import { IOptions } from "@/base/interface/options";
 import { Sender } from "@/base/senders";
 import { ListenerFactory } from "./common/factory";
 import { ListenerKind } from "./common/kinds";
@@ -8,12 +9,13 @@ import { ListenerKind } from "./common/kinds";
   /**
    * Get saved options and run our factory.
    */
-  chrome.storage.sync.get((items) => {
+  chrome.storage.sync.get((items: IOptions) => {
 
-    const { limit = false } = { ...items };
+    const { limit = false, mode = true, circle = false } = { ...items };
 
     const creator = new ListenerFactory();
-    creator.notifyLimitation = limit;
+    creator.options = { limit, mode, circle };
+
     // top box
     creator.add(".timeline-tweet-box form.tweet-form:not(.condensed)", ListenerKind.Web);
     // replies

@@ -1,6 +1,8 @@
 import { Composite } from "@/base/composite";
+import { IOptions } from "@/base/interface/options";
 import { Circle } from "@/base/model/circle";
 import { IElement } from "@/base/model/interface/element";
+import { Selector } from "@/content/common/constants/selectors";
 import { Style } from "@/content/common/constants/styles";
 import { IListener } from "@/content/common/interface/listener";
 
@@ -11,7 +13,7 @@ export class BaseListener implements IListener {
 
   public maxTweetLength: number;
 
-  public notifyLimitation: boolean;
+  public options: IOptions;
 
   public controlElements: Composite = new Composite();
 
@@ -75,7 +77,7 @@ export class BaseListener implements IListener {
   }
 
   /**
-   * Clear timer if it was set.
+   * Clears timer if it was set.
    */
   public clearTimer(): void {
     if (this.__timer) {
@@ -84,13 +86,28 @@ export class BaseListener implements IListener {
   }
 
   /**
-   * Clear observer object if it was set.
+   * Clears observer object if it was set.
    */
   public clearObserver(): void {
     if (this.observer) {
       this.observer.disconnect();
       this.observer = undefined;
     }
+  }
+
+  /**
+   * Removes any cloned buttons from container using the `Selector.BUTTON_CLONE` selector.
+   *
+   * @param {HTMLElement} container - container of buttons
+   */
+  public removeClonedButtons(container: HTMLElement): void {
+
+    const elements = container.getElementsByClassName(Selector.BUTTON_CLONE) as any;
+
+    for (const item of elements) {
+      item.remove();
+    }
+
   }
 
   /**
@@ -109,7 +126,7 @@ export class BaseListener implements IListener {
   }
 
   /**
-   * Sets a appropriate class to the counter and circle based on length.
+   * Sets an appropriate class to the counter and circle based on length.
    * In fact, there are boring "if" conditions here.
    *
    * TODO: optimize.
@@ -118,7 +135,7 @@ export class BaseListener implements IListener {
    */
   protected setStyles(length: number) {
 
-    if (this.notifyLimitation) {
+    if (this.options.limit && !this.options.mode) {
 
       if (length > -this.maxTweetLength && length <= 0) {
 
@@ -134,12 +151,18 @@ export class BaseListener implements IListener {
         this.controlElements.clear();
       }
     } else {
-      if (length > 20) {
-        this.controlElements.clear();
-      } else if (length > 0 && length <= 20) {
-        this.controlElements.warn();
-      } else {
+      // console.log(length);
+      if (length < 0) {
+        this.controlElements.disable();
         this.controlElements.danger();
+      } else {
+        this.controlElements.enable();
+        if (length >= 0 && length <= 20) {
+          this.controlElements.warn();
+        } else {
+          this.controlElements.clear();
+        }
+
       }
     }
 

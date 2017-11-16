@@ -41,4 +41,8 @@ export interface IElement {
    */
   get?: () => HTMLElement | any;
 
+  disable?: () => void;
+
+  enable?: () => void;
+
 }

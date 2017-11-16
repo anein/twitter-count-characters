@@ -1,4 +1,5 @@
 import { IMessage } from "@/base/interface/message";
+import { IOptions } from "@/base/interface/options";
 import { Sender } from "@/base/senders";
 import { Limit } from "@/content/common/constants/limits";
 import { IListener } from "@/content/common/interface/listener";
@@ -10,7 +11,7 @@ import { WebListener } from "@/content/common/listeners/web.listener";
 
 export class ListenerFactory {
 
-  public notifyLimitation: boolean = false;
+  private config: IOptions;
 
   private queries: any[] = [];
 
@@ -20,6 +21,14 @@ export class ListenerFactory {
 
     this.setChromeMessageListener();
 
+  }
+
+  public set options(value: IOptions) {
+    this.config = value;
+  }
+
+  public get options(): IOptions {
+    return this.config;
   }
 
   /**
@@ -39,8 +48,8 @@ export class ListenerFactory {
     for (const element of this.queries) {
 
       const elemConstructor = this.createFactory(element.kind);
-      elemConstructor.maxTweetLength = (this.notifyLimitation) ? Limit.SHORT : Limit.LONG;
-      elemConstructor.notifyLimitation = this.notifyLimitation;
+      elemConstructor.maxTweetLength = (this.config.mode || this.config.limit) ? Limit.SHORT : Limit.LONG;
+      elemConstructor.options = this.options;
       elemConstructor.query = element.query;
       elemConstructor.listen();
 
@@ -79,7 +88,7 @@ export class ListenerFactory {
 
       if (message.from === Sender.POPUP) {
 
-        this.notifyLimitation = message.data.limit;
+        this.config = message.data;
 
         this.recreateQueries();
 

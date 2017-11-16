@@ -1,3 +1,4 @@
+import { IOptions } from "@/base/interface/options";
 import { IElement } from "@/base/model/interface/element";
 
 export interface IListener {
@@ -26,7 +27,7 @@ export interface IListener {
   /**
    *
    */
-  notifyLimitation: boolean;
+  options: IOptions;
 
   /**
    * Initialises listener by calling setInterval method to check if element exists in DOM,
