@@ -1,14 +1,14 @@
 {
-  "ext_name"       : {
+  "ext_name": {
     "message": " Old School Twitter"
   },
-  "ext_short_name" : {
+  "ext_short_name": {
     "message": "280/140 character counter for tweets"
   },
   "ext_description": {
-    "message": "Restores 140 character limit and more."
+    "message": "Restores the 140-character limit, removes the circles, and more"
   },
-  "ext_author"     : {
+  "ext_author": {
     "message": "Alexander Ein (@AlexanderEin)"
   }
 }
