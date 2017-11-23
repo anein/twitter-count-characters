@@ -9,7 +9,7 @@
 ## Preview
 > Mobile version
 
-![](https://lh3.googleusercontent.com/YCZQOXWRTm1xT_5EskOhM8Rwa6SGxsV2bAuHegKN6dPlXQzH5KDijbUEkaLQSMqWTVXEupfPpKM=w640-h400-e365)
+![](https://lh3.googleusercontent.com/nsulw6AFq27yNQIbtvhZPjupjp970ttoXYTahwnxXjp_wgvFA13I8Cl6GO0WBpS_CJnsp0UJQA=w640-h400-e365)
 
 ## Collaboration
 
