@@ -3,10 +3,12 @@ import { Sender } from "@/base/senders";
 
 (() => {
 
+  // get basic elements
   const limitElement = document.getElementById("tweet.limit") as HTMLInputElement;
   const circleElement = document.getElementById("tweet.circles") as HTMLInputElement;
   const modeElement = document.getElementById("tweet.mode") as HTMLInputElement;
 
+  // get the initial state for the elements.
   chrome.storage.sync.get((items) => {
 
     const { limit = false, circle = false, mode = true } = { ...items };
@@ -29,6 +31,7 @@ import { Sender } from "@/base/senders";
   });
 
   /**
+   * Disables or enables the `old school` mode.
    *
    * @param {boolean} on - enable or disable the additional options.
    */
@@ -47,26 +50,30 @@ import { Sender } from "@/base/senders";
 
   }
 
+  /**
+   * Stores options and sends them to the context script
+   */
   function sendMessage(): void {
 
     const limit = limitElement.checked;
     const circle = circleElement.checked;
     const mode = modeElement.checked;
 
-    const data = { limit, circle, mode };
-
     // store our settings;
-    chrome.storage.sync.set(data, () => {
+    chrome.storage.sync.set({ limit, circle, mode }, () => {
 
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        // console.log(data);
-        chrome.tabs.sendMessage(tabs[ 0 ].id, { from: Sender.POPUP, data } as IMessage);
+
+        chrome.tabs.sendMessage(tabs[ 0 ].id, { from: Sender.POPUP, data: { limit, circle, mode } } as IMessage);
 
       });
 
     });
   }
 
+  /**
+   * Sets listeners to the `hide circles` checkbox and `140 warning` checkbox
+   */
   function addOptionalListeners(): void {
 
     const elements = [ limitElement, circleElement ];
