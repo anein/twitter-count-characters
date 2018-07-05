@@ -10,6 +10,22 @@
 > Mobile version
 
 ![](https://lh3.googleusercontent.com/nsulw6AFq27yNQIbtvhZPjupjp970ttoXYTahwnxXjp_wgvFA13I8Cl6GO0WBpS_CJnsp0UJQA=w640-h400-e365)
+## Build and Pack 
+
+First things first, to build the extension, we should install the project dependencies:
+
+```sh
+yarn install
+```
+
+Then build the extension:
+
+```sh
+yarn run build
+```
+
+It creates a directory called "build". After that, using the official [Testing and Debugging](https://dev.opera.com/extensions/testing/) guide, pack the extension. Done.
+
 
 ## Collaboration
 
