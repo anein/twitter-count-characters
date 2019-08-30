@@ -31,6 +31,11 @@
   },
   "devDependencies": {
     "prettier": "^1.18.2",
+    "stylelint": "^10.1.0",
+    "stylelint-color-format": "^0.2.0",
+    "stylelint-high-performance-animation": "^1.2.1",
+    "stylelint-prettier": "^1.1.1",
+    "stylelint-scss": "^3.10.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-microsoft-contrib": "^6.2.0"
   }
