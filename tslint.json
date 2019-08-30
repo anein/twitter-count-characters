@@ -1,25 +1,32 @@
 {
-  "extends"        : [
-    "tslint:recommended"
-  ],
+  "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
+  "extends": ["tslint:latest", "tslint-microsoft-contrib/recommended", "tslint-config-prettier"],
   "defaultSeverity": "error",
-  "jsRules"        : {},
-  "rules"          : {
-    "quotemark"               : [
-      true,
-      "double"
-    ],
-    "no-bitwise"              : false,
-    "variable-name"           : false,
-    "indent"                  : [
-      true
-    ],
-    "interface-name"          : [
-      false
-    ],
-    "arrow-parens"            : false,
+  "jsRules": {},
+  "rules": {
+    "export-name": false,
+    "no-backbone-get-set-outside-model": false,
+    "no-bitwise": false,
+    "indent": [true],
+    "interface-name": [false],
+    "arrow-parens": false,
     "object-literal-sort-keys": false,
-    "no-consecutive-blank-lines": true
-  },
-  "rulesDirectory" : []
+    "no-implicit-dependencies": false,
+    "no-consecutive-blank-lines": true,
+    "no-submodule-imports": false,
+    "prefer-type-cast": false,
+    "no-relative-imports": true,
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"],
+
+    "function-name": [
+      true,
+      {
+        "method-regex": "^\\*?\\[?[a-zA-Z][\\w\\d\\.]*\\]?$",
+        "private-method-regex": "^\\*?\\[?[a-zA-Z][\\w\\d\\.]*\\]?$",
+        "protected-method-regex": "^\\*?\\[?[a-zA-Z][\\w\\d\\.]*\\]?$",
+        "static-method-regex": "^\\*?\\[?[a-zA-Z][\\w\\d\\.]*\\]?$",
+        "function-regex": "^\\*?\\[?[a-zA-Z][\\w\\d\\.]*\\]?$"
+      }
+    ]
+  }
 }

@@ -1,32 +1,37 @@
 {
-  "name"        : "twitter.characters",
-  "version"     : "0.5.0",
-  "description" : "Extention displays the remaining number of characters that you can squeeze into a tweet",
-  "author"      : "Alexander Ein (@alexanderein)",
-  "license"     : "MIT",
-  "private"     : false,
-  "scripts"     : {
+  "name": "twitter.characters",
+  "version": "0.5.0",
+  "description": "Extention displays the remaining number of characters that you can squeeze into a tweet",
+  "author": "Alexander Ein (@alexanderein)",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
     "build": " webpack -p --config config/webpack.config.js",
-    "dev"  : " webpack --watch --hot --config config/webpack.config.js "
+    "dev": " webpack --watch --hot --config config/webpack.config.js "
   },
   "dependencies": {
-    "@types/chrome"              : "^0.0.52",
-    "@types/core-js"             : "^0.9.43",
-    "copy-webpack-plugin"        : "^4.2.0",
-    "css-loader"                 : "^0.28.7",
-    "cssnano"                    : "^3.10.0",
+    "@types/chrome": "^0.0.52",
+    "@types/core-js": "^0.9.43",
+    "copy-webpack-plugin": "^4.2.0",
+    "css-loader": "^0.28.7",
+    "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^3.0.2",
-    "html-webpack-plugin"        : "^2.30.1",
-    "postcss-cssnext"            : "^3.0.2",
-    "postcss-import"             : "^11.0.0",
-    "postcss-loader"             : "^2.0.8",
-    "style-loader"               : "^0.19.0",
-    "ts-loader"                  : "^3.1.1",
-    "tslint"                     : "^5.8.0",
-    "typescript"                 : "^2.6.1",
-    "webpack"                    : "^3.8.1",
-    "webpack-externals-plugin"   : "^1.0.0",
-    "webpack-md5-hash"           : "^0.0.5",
-    "webpack-merge"              : "^4.1.1"
+    "html-webpack-plugin": "^2.30.1",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^11.0.0",
+    "postcss-loader": "^2.0.8",
+    "style-loader": "^0.19.0",
+    "ts-loader": "^3.1.1",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "webpack": "^3.8.1",
+    "webpack-externals-plugin": "^1.0.0",
+    "webpack-md5-hash": "^0.0.5",
+    "webpack-merge": "^4.1.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-microsoft-contrib": "^6.2.0"
   }
 }
