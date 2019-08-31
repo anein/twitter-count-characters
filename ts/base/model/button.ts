@@ -1,43 +1,20 @@
-import { Element } from "@/base/model/element";
-import { Selector } from "@/content/common/constants/selectors";
-import { Style } from "@/content/common/constants/styles";
+import { Element } from '@/base/model/element';
+import { Selector } from '@/content/common/constants/selectors';
+import { Style } from '@/content/common/constants/styles';
 
 export class Button extends Element {
-
-  private clonedElement = undefined;
-
   public disable(): void {
-    if (!this.clonedElement) {
-      this.clonedElement = this.element.cloneNode(true);
-      this.clonedElement.classList.add(Style.DISABLE, Selector.BUTTON_CLONE);
-      this.clonedElement.disabled = true;
-      this.element.parentElement.insertBefore(this.clonedElement, this.element.nextSibling);
-      this.hide();
-    }
-
+    this.element.classList.add('is-disabled');
+    this.element.setAttribute('disabled', 'true');
   }
 
   public enable(): void {
-
-    this.removeClone();
-    this.show();
-
+    this.element.classList.remove('is-disabled');
+    this.element.setAttribute('disabled', 'false');
+    this.element.removeAttribute('disabled');
   }
 
-  public warn(): void {
-    //
-  }
+  public warn(): void {}
 
-  public danger(): void {
-    //
-  }
-
-  private removeClone(): void {
-    if (this.clonedElement) {
-      this.clonedElement.remove();
-      this.clonedElement = undefined;
-    }
-
-  }
-
+  public danger(): void {}
 }

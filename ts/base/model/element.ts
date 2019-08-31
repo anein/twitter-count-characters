@@ -1,14 +1,12 @@
-import { IElement } from "@/base/model/interface/element";
-import { Selector } from "@/content/common/constants/selectors";
-import { Style } from "@/content/common/constants/styles";
+import { IElement } from '@/base/model/interface/element';
+import { Selector } from '@/content/common/constants/selectors';
+import { Style } from '@/content/common/constants/styles';
 
 export class Element implements IElement {
-
   constructor(public element: HTMLElement | any) {
     if (this.element) {
       this.show();
     }
-
   }
 
   /**
@@ -23,10 +21,11 @@ export class Element implements IElement {
   }
 
   public show(): void {
-    this.element.classList.remove(Style.HIDE);
+    this.element.style.display = 'inline';
   }
 
   public hide(): void {
+    this.element.style.display = 'none !important';
     this.element.classList.add(Style.HIDE);
   }
 
@@ -38,8 +37,8 @@ export class Element implements IElement {
     this.element.classList.add(Style.DANGER);
   }
 
-  public clear(...additilaClasses: string[]): void {
-    this.element.classList.remove(Style.WARN, Style.DANGER, ...additilaClasses);
+  public clear(...additionalClasses: string[]): void {
+    this.element.classList.remove(Style.WARN, Style.DANGER, ...additionalClasses);
   }
 
   public pulse(): void {
@@ -57,5 +56,4 @@ export class Element implements IElement {
   public enable(): void {
     //
   }
-
 }

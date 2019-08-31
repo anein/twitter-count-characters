@@ -1,13 +1,13 @@
-import { Composite } from "@/base/composite";
-import { IOptions } from "@/base/interface/options";
-import { Circle } from "@/base/model/circle";
-import { IElement } from "@/base/model/interface/element";
-import { Selector } from "@/content/common/constants/selectors";
-import { Style } from "@/content/common/constants/styles";
-import { IListener } from "@/content/common/interface/listener";
+import { Composite } from '@/base/composite';
+import { IOptions } from '@/base/interface/options';
+import { Circle } from '@/base/model/circle';
+import { IElement } from '@/base/model/interface/element';
+import { Selector } from '@/content/common/constants/selectors';
+import { Style } from '@/content/common/constants/styles';
+import { IListener } from '@/content/common/interface/listener';
+import { Limit } from '@/content/common/constants/limits';
 
-export class BaseListener implements IListener {
-
+export abstract class BaseListener implements IListener {
   // Default timeout for interval
   public timeout: number = 500;
 
@@ -24,7 +24,7 @@ export class BaseListener implements IListener {
   protected checkObserver: boolean = true;
 
   // timer id
-  private __timer: number;
+  private __timerId: any;
 
   // DOM query expression, e.g. `.my-class`
   private __query: string;
@@ -41,29 +41,20 @@ export class BaseListener implements IListener {
     return (document.querySelector(this.query) as HTMLElement) || null;
   }
 
-  public listen(): void {
+  public abstract draw(element: HTMLElement): void;
 
+  public listen(): void {
     this.clearTimer();
 
-    this.__timer = setInterval(() => {
-
+    this.__timerId = setInterval(() => {
       if (this.element && (!this.observer || !this.checkObserver)) {
-
         this.draw(this.element);
-
       } else if (this.element === null && this.observer) {
-
         this.clearObserver();
       } else {
         // o_O, or for some other purposes
       }
-
     }, this.timeout);
-
-  }
-
-  public draw(element: HTMLElement): void {
-    //
   }
 
   /**
@@ -73,20 +64,20 @@ export class BaseListener implements IListener {
    * @returns {string}
    */
   public calculateLength(length: number): string {
-    return (this.maxTweetLength - length).toString();
+    return length.toString();
   }
 
   /**
    * Clears timer if it was set.
    */
   public clearTimer(): void {
-    if (this.__timer) {
-      clearInterval(this.__timer);
+    if (this.__timerId) {
+      clearInterval(this.__timerId);
     }
   }
 
   /**
-   * Clears observer object if it was set.
+   * Clears the observer object if it was set.
    */
   public clearObserver(): void {
     if (this.observer) {
@@ -101,13 +92,11 @@ export class BaseListener implements IListener {
    * @param {HTMLElement} container - container of buttons
    */
   public removeClonedButtons(container: HTMLElement): void {
-
     const elements = container.getElementsByClassName(Selector.BUTTON_CLONE) as any;
 
     for (const item of elements) {
       item.remove();
     }
-
   }
 
   /**
@@ -116,13 +105,11 @@ export class BaseListener implements IListener {
    * @param {number} length - text length
    */
   protected setLengthAndStyles(length) {
-
     const remainingLength = this.calculateLength(length);
 
     this.controlElements.setText(remainingLength);
 
     this.setStyles(~~remainingLength);
-
   }
 
   /**
@@ -134,24 +121,22 @@ export class BaseListener implements IListener {
    * @param {number} length - text length
    */
   protected setStyles(length: number) {
-
+    console.log(length);
     if (this.options.limit && !this.options.mode) {
-
-      if (length > -this.maxTweetLength && length <= 0) {
-
+      // length between 0 and half of max length
+      if (length >= 0 && length <= Limit.SHORT) {
         this.controlElements.warn();
 
         if (length === 0) {
           this.controlElements.pulse();
         }
-
-      } else if (length <= -this.maxTweetLength) {
+      } else if (length < 0) {
         this.controlElements.danger();
       } else {
         this.controlElements.clear();
       }
     } else {
-      // console.log(length);
+      console.log(length);
       if (length < 0) {
         this.controlElements.disable();
         this.controlElements.danger();
@@ -162,10 +147,7 @@ export class BaseListener implements IListener {
         } else {
           this.controlElements.clear();
         }
-
       }
     }
-
   }
-
 }

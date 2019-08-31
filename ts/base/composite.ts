@@ -11,7 +11,7 @@ export class Composite implements IElement {
   /**
    * Adds an element to composition
    *
-   * @param {IElement} element - component
+   * @param {IElement} elements - component
    */
   public add(...elements: IElement[]): void {
     this.children.push(...elements);
