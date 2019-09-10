@@ -14,3 +14,7 @@ export enum TD_Selector {
   SOURCE_COUNTER = 'js-character-count',
   BUTTON = 'js-send-button',
 }
+export enum WEB_Selector {
+  CIRCLE = "div[role='progressbar']",
+  BUTTON = "div[data-testid='tweetButtonInline']",
+}

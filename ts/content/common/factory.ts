@@ -17,7 +17,7 @@ export class ListenerFactory {
   private factories: IListener[] = [];
 
   constructor() {
-    this.setChromeMessageListener();
+    // this.setChromeMessageListener();
   }
 
   public set options(value: IOptions) {
@@ -31,19 +31,26 @@ export class ListenerFactory {
   /**
    * Add a new query object.
    */
-  public add(query: string, kind: ListenerKind): void {
-    this.queries.push({ query, kind });
+  public add(kind: ListenerKind, element: Node | string): void {
+    this.queries.push({ kind, element });
   }
 
   /**
    * Creates factories based on the query list
    */
   public listen(): void {
-    for (const element of this.queries) {
-      const elemConstructor = this.createFactory(element.kind);
+    console.log(this.queries);
+    for (const item of this.queries) {
+      const elemConstructor = this.createFactory(item.kind);
       elemConstructor.maxTweetLength = this.config.mode ? Limit.SHORT : Limit.LONG;
       elemConstructor.options = this.options;
-      elemConstructor.query = element.query;
+      console.log(typeof item.element);
+      if (typeof item.element === 'string') {
+        elemConstructor.query = item.element;
+      } else {
+        elemConstructor.element = item.element;
+      }
+
       elemConstructor.listen();
 
       this.factories.push(elemConstructor);

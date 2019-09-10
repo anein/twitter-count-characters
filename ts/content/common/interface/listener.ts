@@ -1,8 +1,7 @@
-import { IOptions } from "@/base/interface/options";
-import { IElement } from "@/base/model/interface/element";
+import { IOptions } from '@/base/interface/options';
+import { IElement } from '@/base/model/interface/element';
 
 export interface IListener {
-
   /**
    * Default timeout of the interval method
    */
@@ -12,13 +11,9 @@ export interface IListener {
    */
   query: string;
   /**
-   * Stores the counter box
+   * HTML Element
    */
-  // counter: IElement;
-  /**
-   * Stores the circle indicator
-   */
-  // circle: IElement;
+  element: HTMLElement;
   /**
    * Default length of the standard tweet
    */
@@ -49,5 +44,4 @@ export interface IListener {
    * Disconnects the observer from element
    */
   clearObserver: () => void;
-
 }

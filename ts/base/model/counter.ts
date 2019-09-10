@@ -1,17 +1,15 @@
-import { Element } from "@/base/model/element";
+import { Element } from '@/base/model/element';
+import { Style } from '@/content/common/constants/styles';
 
 export class Counter extends Element {
+  public constructor(public element: HTMLElement | any = null) {
+    super(element);
 
-  /**
-   * Creates a counter element
-   *
-   * @param {string} id - unique element id
-   * @param {string} [color=""] - element color
-   */
-  public create(id: string, color: string = ""): void {
-    this.element = document.createElement("div");
-    this.element.id = id;
-    this.element.style.color = color;
+    if (!this.element) {
+      this.element = document.createElement('div');
+      this.element.classList.add(Style.COUNTER);
+      this.element.style.color = 'rgb(101, 119, 134)';
+    }
   }
 
   public addStyle(...styles: string[]): void {
@@ -25,15 +23,7 @@ export class Counter extends Element {
     return ~~this.element.textContent;
   }
 
-  /**
-   * Clone element
-   */
-  public clone(): Node {
-    return this.element.cloneNode(true);
-  }
-
-  public setText(value: string) {
+  public setText(value: any) {
     this.element.innerText = value;
   }
-
 }

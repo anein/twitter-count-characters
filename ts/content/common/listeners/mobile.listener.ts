@@ -28,7 +28,7 @@ export class MobileListener extends BaseListener {
     const button = new Button(document.querySelector(Selector.M_BUTTON));
 
     if (!counter.notEmpty()) {
-      counter.create(Selector.COUNTER, color);
+      // counter.create(Selector.COUNTER, color);
     }
 
     parent.insertBefore(counter.get(), progressbar);

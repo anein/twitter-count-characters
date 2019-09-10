@@ -29,6 +29,9 @@ export abstract class BaseListener implements IListener {
   // DOM query expression, e.g. `.my-class`
   private __query: string;
 
+  //
+  private __element: HTMLElement;
+
   public get query(): string {
     return this.__query;
   }
@@ -38,7 +41,14 @@ export abstract class BaseListener implements IListener {
   }
 
   public get element(): HTMLElement | null {
-    return (document.querySelector(this.query) as HTMLElement) || null;
+    if (!this.__element) {
+      this.__element = document.querySelector(this.query) || null;
+    }
+
+    return this.__element;
+  }
+  public set element(value: HTMLElement) {
+    this.__element = value;
   }
 
   public abstract draw(element: HTMLElement): void;
@@ -123,7 +133,7 @@ export abstract class BaseListener implements IListener {
   protected setStyles(length: number) {
     console.log(length);
     if (this.options.limit && !this.options.mode) {
-      // length between 0 and half of max length
+      // length between 0 and half of the max length
       if (length >= 0 && length <= Limit.SHORT) {
         this.controlElements.warn();
 

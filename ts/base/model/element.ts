@@ -3,10 +3,7 @@ import { Selector } from '@/content/common/constants/selectors';
 import { Style } from '@/content/common/constants/styles';
 
 export class Element implements IElement {
-  constructor(public element: HTMLElement | any) {
-    if (this.element) {
-      this.show();
-    }
+  constructor(public element: HTMLElement | any = null) {
   }
 
   /**
@@ -21,7 +18,7 @@ export class Element implements IElement {
   }
 
   public show(): void {
-    this.element.style.display = 'inline';
+    this.element.classList.remove(Style.HIDE);
   }
 
   public hide(): void {
@@ -39,6 +36,13 @@ export class Element implements IElement {
 
   public clear(...additionalClasses: string[]): void {
     this.element.classList.remove(Style.WARN, Style.DANGER, ...additionalClasses);
+  }
+
+  /**
+   * Clone element
+   */
+  public clone(): Node {
+    return this.element.cloneNode(true);
   }
 
   public pulse(): void {
