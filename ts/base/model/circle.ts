@@ -4,6 +4,18 @@ import { Selector } from '@/content/common/constants/selectors';
 import { Style } from '@/content/common/constants/styles';
 
 export class Circle extends Element {
+  // store a circle element that is filled by color
+  protected progressbar: any;
+
+  public constructor(element: HTMLElement | any) {
+    super(element);
+
+    if (this.element) {
+      this.element.classList.add('padding-xs');
+      this.progressbar = this.element.querySelectorAll('circle')[1];
+    }
+  }
+
   public show(): void {
     if (this.element.parentElement.classList.contains(Style.HIDE)) {
       this.element.parentElement.classList.remove(Style.HIDE);
@@ -29,10 +41,33 @@ export class Circle extends Element {
   }
 
   public clear(): void {
-    this.element.classList.remove(Style.WARN, Style.DANGER, Style.T_PULSE, Style.T_A_PULSE);
+    this.progressbar.classList.remove(Style.WARN, Style.DANGER, Style.T_PULSE, Style.T_A_PULSE);
   }
 
   public pulse(): void {
-    this.element.classList.add(Style.T_PULSE, Style.T_A_PULSE);
+    this.progressbar.classList.add(Style.T_PULSE, Style.T_A_PULSE);
+  }
+
+  public warn(): void {
+    this.progressbar.classList.add(Style.WARN);
+  }
+
+  public danger(): void {
+    this.progressbar.classList.add(Style.DANGER);
+  }
+
+  /**
+   * Gets styles of the progressbar.
+   */
+  public getStyle() {
+    return this.progressbar.style;
+  }
+
+  /**
+   *
+   */
+  public setStyle(value: any) {
+    this.progressbar.style.strokeDashoffset = value.strokeDashoffset;
+    this.progressbar.style.strokeDasharray = value.strokeDasharray;
   }
 }

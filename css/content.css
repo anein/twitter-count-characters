@@ -12,12 +12,16 @@
   display: none !important;
 }
 
-.is-disabled{
+.is-disabled {
   opacity: 0.5;
   cursor: default !important;
 }
 
-button.is-disabled{
+button.is-disabled {
   opacity: 0.3;
   cursor: not-allowed !important;
+}
+
+.padding-xs {
+  margin-left: 4px !important;
 }

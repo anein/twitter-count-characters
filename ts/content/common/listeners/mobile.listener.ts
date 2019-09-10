@@ -41,7 +41,7 @@ export class MobileListener extends BaseListener {
 
     this.controlElements.add(counter);
 
-    this.setLengthAndStyles(element.textLength);
+    this.updateCounter(element.textLength);
 
     // set observer to listen the changes of textarea
     this.observer = new MutationObserver(() => {
@@ -59,7 +59,7 @@ export class MobileListener extends BaseListener {
 
       }
 
-      this.setLengthAndStyles(length);
+      this.updateCounter(length);
 
     });
 

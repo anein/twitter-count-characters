@@ -37,14 +37,14 @@ export class TweetdeckListener extends BaseListener {
     this.renderCircle(element);
     this.renderSubmitButton(element);
 
-    this.setLengthAndStyles(length);
+    this.updateCounter(length);
 
     // clear observer, just in case
     this.clearObserver();
 
     // set observer to listen the changes of counter text.
     this.observer = new MutationObserver(() => {
-      this.setLengthAndStyles(sourceCounter.length());
+      this.updateCounter(sourceCounter.length());
     });
 
     this.observer.observe(sourceCounter.get(), { childList: true, subtree: true });

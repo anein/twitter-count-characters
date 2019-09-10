@@ -11,54 +11,45 @@ export class WebListener extends BaseListener {
     const circle = new Circle(element.querySelector(WEB_Selector.CIRCLE));
 
     // clone the circle to replace it with our circle
-    const circle2 = new Circle(circle.clone());
+    const progressbar = new Circle(circle.clone());
 
-    //
-    //
+    // create the counter
     const counter = new Counter();
-    counter.setText(Limit.LONG);
+    counter.initValue = Limit.LONG;
 
     element.insertBefore(counter.get(), circle.get().parentNode);
-    element.insertBefore(circle2.get(), circle.get().parentNode);
+    element.insertBefore(progressbar.get(), circle.get().parentNode);
+
     circle.hide(1);
-    //
-    // // get a tweet box to understand if there was a saved text or not,
-    // // and to catch changes.
-    // const tweetBox = element.querySelector(Selector.W_BOX_EDITOR);
-    //
-    // // to observe text length
-    // const textarea = element.getElementsByTagName(Selector.TEXTAREA)[0];
-    //
-    // const counter = new Counter(sourceCounter.clone());
-    // counter.clear(Style.T_REACHED);
 
-    const button = new Button(element.querySelector(WEB_Selector.BUTTON));
-
-    // // insert our counter before the source counter, and remove the last.
-    // sourceCounter.get().parentElement.insertBefore(counter.get(), sourceCounter.get());
-    // sourceCounter.get().remove();
-    //
-    // // if `old school mode` or `hide circle` flag is enabled, hide the circle!
-    // // TODO: optimize
     // this.options.mode || this.options.circle ? circle.hide(1) : this.controlElements.add(circle);
     // if (this.options.mode) {
-    this.controlElements.add(circle2);
-    this.controlElements.add(button);
+    this.controlElements.add(progressbar);
     this.controlElements.add(counter);
     // }
 
     // set observer to listen the changes of text.
     this.observer = new MutationObserver(() => {
+      // update progressbar. In fact, here we get stroke width of the source circle and set it to our fake circle.
+      progressbar.setStyle(circle.getStyle());
+
+      // update the counter
       const count = this.getLengthFromReactInstance(element);
-      this.setLengthAndStyles(Limit.LONG - count);
+      this.updateCounter(Limit.LONG - count);
     });
 
-    this.observer.observe(circle.get(), { attributes: true, childList: false, subtree: true });
+    this.observer.observe(circle.get(), { attributes: true, childList: true, subtree: true });
+
+    // It's need to catch changes when the length of tweet  have exceeded the max length
+    this.observer.observe(circle.get().parentNode.lastChild, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
   }
 
   public getLengthFromReactInstance(element: Node): number {
     const instance = element[Object.keys(element)[0]];
-    console.dir(instance.child.stateNode.props);
     return instance.child.stateNode.props.count;
   }
 }

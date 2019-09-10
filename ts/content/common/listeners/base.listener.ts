@@ -114,7 +114,7 @@ export abstract class BaseListener implements IListener {
    * .
    * @param {number} length - text length
    */
-  protected setLengthAndStyles(length) {
+  protected updateCounter(length) {
     const remainingLength = this.calculateLength(length);
 
     this.controlElements.setText(remainingLength);
@@ -146,7 +146,6 @@ export abstract class BaseListener implements IListener {
         this.controlElements.clear();
       }
     } else {
-      console.log(length);
       if (length < 0) {
         this.controlElements.disable();
         this.controlElements.danger();
