@@ -35,7 +35,7 @@ export class TweetdeckListener extends BaseListener {
     const length = sourceCounter.length();
 
     this.renderCircle(element);
-    this.renderSubmitButton(element);
+    // this.renderSubmitButton(element);
 
     this.updateCounter(length);
 
@@ -58,23 +58,23 @@ export class TweetdeckListener extends BaseListener {
   private renderCircle(element: HTMLElement) {
     const circle = new Circle(element.getElementsByClassName(Selector.CIRCLE)[0]);
 
-    if (this.options.circle) {
+    if (this.options.hideCircle) {
       circle.hide();
     } else {
       this.controlElements.add(circle);
     }
   }
-
-  /**
-   * Gets the submit button, and adds it to the control collection if the 140 mode is enabled.
-   */
-  private renderSubmitButton(element: HTMLElement) {
-    // get the submit button
-    const button = new Button(element.parentElement.getElementsByClassName(TD_Selector.BUTTON)[0]);
-    if (this.options.mode) {
-      this.controlElements.add(button);
-    } else {
-      button.enable();
-    }
-  }
+  //
+  // /**
+  //  * Gets the submit button, and adds it to the control collection if the 140 mode is enabled.
+  //  */
+  // private renderSubmitButton(element: HTMLElement) {
+  //   // get the submit button
+  //   const button = new Button(element.parentElement.getElementsByClassName(TD_Selector.BUTTON)[0]);
+  //   if (this.options.mode) {
+  //     this.controlElements.add(button);
+  //   } else {
+  //     button.enable();
+  //   }
+  // }
 }

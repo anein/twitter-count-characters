@@ -1,26 +1,33 @@
-import { IOptions } from '@/base/interface/options';
 import { ListenerFactory } from '@/content/common/factory';
-import { ListenerKind } from '@/content/common/kinds';
-import elements = chrome.devtools.panels.elements;
+import { ListenerKind } from '@/content/common/constants/kinds';
+import { Selector, WEB_Selector } from '@/content/common/constants/selectors';
 
 (() => {
+  function getSourceScriptData() {
+    const script = document.querySelector("script[name='zen-web-injection']");
+    const data = script ? script.getAttribute('data') : '{}';
+
+    return { ...JSON.parse(data) };
+  }
+
+  const config = getSourceScriptData();
+
   const mutation = new MutationObserver(e => {
     const root = document.querySelector('#react-root div[data-reactroot]');
 
-    // get the progressbar of the toolbar
-    const progressbar = root.querySelectorAll(`div[data-testid='toolBar'] div[role='progressbar']`).item(0);
+    // get the right div of the toolbar
+    const progressbar = root.querySelectorAll(WEB_Selector.TOOLBAR_RIGHT_PANEL).item(0);
 
     // disconnect mutation when progressbar is found.
     if (progressbar) {
-      console.info('Initial observer is disconnected');
       mutation.disconnect();
 
-      const toolbar = progressbar.parentNode.parentNode;
-
       const creator = new ListenerFactory();
-      creator.options = { limit: false, mode: false, circle: true };
-
-      creator.add(ListenerKind.Web, toolbar);
+      creator.options = config;
+      // selector: column + toolbar
+      creator.add(ListenerKind.Web, `${WEB_Selector.COLUMN} ${WEB_Selector.TOOLBAR_RIGHT_PANEL}`);
+      // selector: modal + toolbar
+      creator.add(ListenerKind.Web, `${WEB_Selector.MODAL} ${WEB_Selector.TOOLBAR_RIGHT_PANEL}`);
       creator.listen();
     }
   });

@@ -3,8 +3,7 @@ import { Selector } from '@/content/common/constants/selectors';
 import { Style } from '@/content/common/constants/styles';
 
 export class Element implements IElement {
-  constructor(public element: HTMLElement | any = null) {
-  }
+  constructor(public element: HTMLElement | any = null) {}
 
   /**
    * Checks if the element exists in DOM
@@ -49,7 +48,7 @@ export class Element implements IElement {
     //
   }
 
-  public setText(value: string): void {
+  public setText(value: any): void {
     //
   }
 

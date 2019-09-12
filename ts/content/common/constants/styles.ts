@@ -9,4 +9,6 @@ export enum Style {
   HIDE = 'hide',
   DISABLE = 'is-disabled',
   COUNTER = 'ein-counter',
+  COLOR_TOUCHED = 'rgb(101, 119, 134)',
+  COLOR_UNTOUCHED = 'rgb(204, 214, 221)',
 }

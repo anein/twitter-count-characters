@@ -15,11 +15,6 @@ export interface IListener {
    */
   element: HTMLElement;
   /**
-   * Default length of the standard tweet
-   */
-  maxTweetLength: number;
-
-  /**
    *
    */
   options: IOptions;

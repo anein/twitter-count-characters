@@ -19,12 +19,6 @@
       "run_at": "document_end"
     },
     {
-      "matches": ["*://mobile.twitter.com/*"],
-      "js": ["js/mobile.js"],
-      "css": ["css/content.css"],
-      "run_at": "document_end"
-    },
-    {
       "matches": ["*://twitter.com/*"],
       "js": ["js/web.js"],
       "css": ["css/content.css"],

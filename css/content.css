@@ -25,3 +25,11 @@ button.is-disabled {
 .padding-xs {
   margin-left: 4px !important;
 }
+
+.touched {
+  color: rgb(101, 119, 134);
+}
+
+.untouched {
+  color: rgb(204, 214, 221);
+}

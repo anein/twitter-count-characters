@@ -1,19 +1,14 @@
 import { Composite } from '@/base/composite';
 import { IOptions } from '@/base/interface/options';
-import { Circle } from '@/base/model/circle';
-import { IElement } from '@/base/model/interface/element';
 import { Selector } from '@/content/common/constants/selectors';
-import { Style } from '@/content/common/constants/styles';
 import { IListener } from '@/content/common/interface/listener';
-import { Limit } from '@/content/common/constants/limits';
 
+/**
+ * TODO: refactoring.
+ */
 export abstract class BaseListener implements IListener {
-  // Default timeout for interval
-  public timeout: number = 500;
-
-  public maxTweetLength: number;
-
-  public options: IOptions;
+  // Default timeout for the listener.
+  public timeout: number = 100;
 
   public controlElements: Composite = new Composite();
 
@@ -23,14 +18,13 @@ export abstract class BaseListener implements IListener {
   //
   protected checkObserver: boolean = true;
 
+  private __options: IOptions;
+
   // timer id
   private __timerId: any;
 
   // DOM query expression, e.g. `.my-class`
   private __query: string;
-
-  //
-  private __element: HTMLElement;
 
   public get query(): string {
     return this.__query;
@@ -41,14 +35,15 @@ export abstract class BaseListener implements IListener {
   }
 
   public get element(): HTMLElement | null {
-    if (!this.__element) {
-      this.__element = document.querySelector(this.query) || null;
-    }
-
-    return this.__element;
+    return document.querySelector(this.query) || null;
   }
-  public set element(value: HTMLElement) {
-    this.__element = value;
+
+  public set options(value: IOptions) {
+    this.__options = value;
+  }
+
+  public get options(): IOptions {
+    return this.__options;
   }
 
   public abstract draw(element: HTMLElement): void;
@@ -57,7 +52,7 @@ export abstract class BaseListener implements IListener {
     this.clearTimer();
 
     this.__timerId = setInterval(() => {
-      if (this.element && (!this.observer || !this.checkObserver)) {
+      if (this.element && !this.element.querySelector('.ein-counter')) {
         this.draw(this.element);
       } else if (this.element === null && this.observer) {
         this.clearObserver();
@@ -65,16 +60,6 @@ export abstract class BaseListener implements IListener {
         // o_O, or for some other purposes
       }
     }, this.timeout);
-  }
-
-  /**
-   * Calculates remaining text length
-   *
-   * @param {number} length - current text length
-   * @returns {string}
-   */
-  public calculateLength(length: number): string {
-    return length.toString();
   }
 
   /**
@@ -112,50 +97,31 @@ export abstract class BaseListener implements IListener {
   /**
    * Sets length to the counter block, and styles to the circle and counter blocks
    * .
-   * @param {number} length - text length
    */
-  protected updateCounter(length) {
-    const remainingLength = this.calculateLength(length);
+  protected updateCounter(length: number) {
+    const value = this.options.maxLength - length;
 
-    this.controlElements.setText(remainingLength);
+    this.controlElements.setText(value);
 
-    this.setStyles(~~remainingLength);
+    this.setStyles(value);
   }
 
   /**
    * Sets an appropriate class to the counter and circle based on length.
-   * In fact, there are boring "if" conditions here.
    *
-   * TODO: optimize.
-   *
-   * @param {number} length - text length
    */
   protected setStyles(length: number) {
-    console.log(length);
-    if (this.options.limit && !this.options.mode) {
-      // length between 0 and half of the max length
-      if (length >= 0 && length <= Limit.SHORT) {
-        this.controlElements.warn();
-
-        if (length === 0) {
-          this.controlElements.pulse();
-        }
-      } else if (length < 0) {
+    if (length < 0) {
+      this.controlElements.disable();
+      this.controlElements.danger();
+    } else {
+      this.controlElements.enable();
+      if (length === 0) {
         this.controlElements.danger();
+      } else if (length > 0 && length <= this.options.warnLength) {
+        this.controlElements.warn();
       } else {
         this.controlElements.clear();
-      }
-    } else {
-      if (length < 0) {
-        this.controlElements.disable();
-        this.controlElements.danger();
-      } else {
-        this.controlElements.enable();
-        if (length >= 0 && length <= 20) {
-          this.controlElements.warn();
-        } else {
-          this.controlElements.clear();
-        }
       }
     }
   }

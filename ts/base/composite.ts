@@ -1,11 +1,10 @@
-import { IElement } from "@/base/model/interface/element";
+import { IElement } from '@/base/model/interface/element';
 
 export class Composite implements IElement {
-
   private children: IElement[] = [];
 
   public notEmpty(): boolean {
-    return (this.children.length > 0);
+    return this.children.length > 0;
   }
 
   /**
@@ -53,7 +52,6 @@ export class Composite implements IElement {
     for (const element of this.children) {
       element.warn();
     }
-
   }
 
   /**
@@ -96,10 +94,9 @@ export class Composite implements IElement {
     }
   }
 
-  public setText(value: string): void {
+  public setText(value: any): void {
     for (const element of this.children) {
       element.setText(value);
     }
   }
-
 }

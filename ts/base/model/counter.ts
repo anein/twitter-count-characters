@@ -3,11 +3,15 @@ import { Style } from '@/content/common/constants/styles';
 
 export class Counter extends Element {
   private __initialValue: number;
-  private __value: string;
+  private __value: number;
 
   public set initValue(value: number) {
     this.__initialValue = value;
     this.element.innerText = value;
+  }
+
+  public set value(value: string) {
+    this.__value = ~~value;
   }
 
   public constructor(public element: HTMLElement | any = null) {
@@ -17,7 +21,7 @@ export class Counter extends Element {
       this.element = document.createElement('div');
       this.element.classList.add(Style.COUNTER);
 
-      this.empty();
+      this.untouched();
     }
   }
 
@@ -28,8 +32,8 @@ export class Counter extends Element {
   public clear(...additionalClasses): void {
     super.clear(...additionalClasses);
 
-    if (this.__initialValue === parseInt(this.__value, 10)) {
-      this.empty();
+    if (this.__initialValue === this.__value) {
+      this.untouched();
     } else {
       this.touched();
     }
@@ -44,14 +48,14 @@ export class Counter extends Element {
 
   public setText(value: any) {
     this.element.innerText = value;
-    this.__value = value;
+    this.value = value;
   }
 
   public touched() {
-    this.element.style.color = 'rgb(101, 119, 134)';
+    this.element.style.color = Style.COLOR_TOUCHED;
   }
 
-  public empty() {
-    this.element.style.color = 'rgb(204, 214, 221)';
+  public untouched() {
+    this.element.style.color = Style.COLOR_UNTOUCHED;
   }
 }

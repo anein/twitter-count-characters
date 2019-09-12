@@ -1,5 +1,4 @@
 export interface IElement {
-
   element?: HTMLElement | any;
 
   /**
@@ -30,7 +29,7 @@ export interface IElement {
   /**
    * Sets value to the `innerText` attribute of element
    */
-  setText?: (value: string) => void;
+  setText?: (value: number) => void;
   /**
    * Sets the `pulse` class to the element
    */
@@ -44,5 +43,4 @@ export interface IElement {
   disable?: () => void;
 
   enable?: () => void;
-
 }

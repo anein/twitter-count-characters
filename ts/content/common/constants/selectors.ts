@@ -17,4 +17,7 @@ export enum TD_Selector {
 export enum WEB_Selector {
   CIRCLE = "div[role='progressbar']",
   BUTTON = "div[data-testid='tweetButtonInline']",
+  TOOLBAR_RIGHT_PANEL = "div[data-testid='toolBar'] div:nth-child(2)",
+  MODAL = "div[aria-labelledby='modal-header']",
+  COLUMN = "div[data-testid='primaryColumn']",
 }

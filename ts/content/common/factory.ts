@@ -1,16 +1,14 @@
+import { IConfig } from '@/base/interface/config';
 import { IMessage } from '@/base/interface/message';
-import { IOptions } from '@/base/interface/options';
+import { Options } from '@/base/model/options';
 import { Sender } from '@/base/senders';
-import { Limit } from '@/content/common/constants/limits';
 import { IListener } from '@/content/common/interface/listener';
-import { ListenerKind } from '@/content/common/kinds';
-import { BaseListener } from '@/content/common/listeners/base.listener';
-import { MobileListener } from '@/content/common/listeners/mobile.listener';
+import { ListenerKind } from '@/content/common/constants/kinds';
 import { TweetdeckListener } from '@/content/common/listeners/tweetdeck.listener';
 import { WebListener } from '@/content/common/listeners/web.listener';
 
 export class ListenerFactory {
-  private config: IOptions;
+  private config: IConfig;
 
   private queries: any[] = [];
 
@@ -20,11 +18,11 @@ export class ListenerFactory {
     // this.setChromeMessageListener();
   }
 
-  public set options(value: IOptions) {
+  public set options(value: IConfig) {
     this.config = value;
   }
 
-  public get options(): IOptions {
+  public get options(): IConfig {
     return this.config;
   }
 
@@ -39,17 +37,10 @@ export class ListenerFactory {
    * Creates factories based on the query list
    */
   public listen(): void {
-    console.log(this.queries);
     for (const item of this.queries) {
       const elemConstructor = this.createFactory(item.kind);
-      elemConstructor.maxTweetLength = this.config.mode ? Limit.SHORT : Limit.LONG;
-      elemConstructor.options = this.options;
-      console.log(typeof item.element);
-      if (typeof item.element === 'string') {
-        elemConstructor.query = item.element;
-      } else {
-        elemConstructor.element = item.element;
-      }
+      elemConstructor.options = new Options(this.options);
+      elemConstructor.query = item.element;
 
       elemConstructor.listen();
 
@@ -60,8 +51,8 @@ export class ListenerFactory {
   /**
    * Creates an instance of Listener.
    *
-   * @param {ListenerKind} kind - type of listener
-   * @returns {IListener} - new instance of Listener
+   * @param {ListenerKind} kind - a type of listener
+   * @returns {IListener} a new instance of Listener
    */
   private createFactory(kind: ListenerKind): IListener {
     switch (kind) {
@@ -69,8 +60,6 @@ export class ListenerFactory {
         return new WebListener();
       case ListenerKind.Tweetdeck:
         return new TweetdeckListener();
-      case ListenerKind.Mobile:
-        return new MobileListener();
       default:
         return;
     }

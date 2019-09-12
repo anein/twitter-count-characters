@@ -7,7 +7,6 @@ module.exports = [
     entry: {
       popup: [helpers.root('ts/', 'popup.ts')],
       tweetdeck: helpers.root('ts/content', 'tweetdeck.ts'),
-      mobile: helpers.root('ts/content', 'mobile.ts'),
       web: helpers.root('ts/content', 'web.ts'),
       'scripts/web': helpers.root('ts/content/scripts', 'web.ts'),
     },

@@ -1,10 +1,8 @@
-import { IOptions } from "@/base/interface/options";
-import { Sender } from "@/base/senders";
+import { IConfig } from '@/base/interface/config';
+import { Sender } from '@/base/senders';
 
 export interface IMessage {
-
   from: Sender;
 
-  data: IOptions;
-
+  data: IConfig;
 }

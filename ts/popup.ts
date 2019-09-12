@@ -64,7 +64,7 @@ import { Sender } from "@/base/senders";
 
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
-        chrome.tabs.sendMessage(tabs[ 0 ].id, { from: Sender.POPUP, data: { limit, circle, mode } } as IMessage);
+        chrome.tabs.sendMessage(tabs[ 0 ].id, { from: Sender.POPUP, data: { limit, circle, mode } });
 
       });
 
