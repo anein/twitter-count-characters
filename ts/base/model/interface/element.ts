@@ -43,4 +43,6 @@ export interface IElement {
   disable?: () => void;
 
   enable?: () => void;
+
+  remove?: () => void;
 }

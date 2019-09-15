@@ -10,7 +10,7 @@ import { IConfig } from '@/base/interface/config';
     const { limit = false, mode = true, circle = false } = { ...items };
 
     const creator = new ListenerFactory();
-    creator.options = { limit, mode, circle };
+    creator.config = { limit, mode, circle };
 
     creator.add(ListenerKind.Tweetdeck, '.compose .compose-text-container');
     // reply block

@@ -1,30 +1,16 @@
 import { IConfig } from '@/base/interface/config';
-import { IMessage } from '@/base/interface/message';
 import { Options } from '@/base/model/options';
-import { Sender } from '@/base/senders';
-import { IListener } from '@/content/common/interface/listener';
 import { ListenerKind } from '@/content/common/constants/kinds';
+import { IListener } from '@/content/common/listeners/base/interface/listener';
 import { TweetdeckListener } from '@/content/common/listeners/tweetdeck.listener';
 import { WebListener } from '@/content/common/listeners/web.listener';
 
 export class ListenerFactory {
-  private config: IConfig;
+  public config: IConfig;
 
   private queries: any[] = [];
 
   private factories: IListener[] = [];
-
-  constructor() {
-    // this.setChromeMessageListener();
-  }
-
-  public set options(value: IConfig) {
-    this.config = value;
-  }
-
-  public get options(): IConfig {
-    return this.config;
-  }
 
   /**
    * Add a new query object.
@@ -39,12 +25,21 @@ export class ListenerFactory {
   public listen(): void {
     for (const item of this.queries) {
       const elemConstructor = this.createFactory(item.kind);
-      elemConstructor.options = new Options(this.options);
+      elemConstructor.options = new Options(this.config);
       elemConstructor.query = item.element;
 
       elemConstructor.listen();
 
       this.factories.push(elemConstructor);
+    }
+  }
+
+  /**
+   * Removes previous factories and creates new ones.
+   */
+  public updateOptions(): void {
+    for (const factory of this.factories) {
+      factory.options = new Options(this.config);
     }
   }
 
@@ -63,33 +58,5 @@ export class ListenerFactory {
       default:
         return;
     }
-  }
-
-  /**
-   * Sets the chrome listener to get accept to the settings.
-   */
-  private setChromeMessageListener(): void {
-    chrome.runtime.onMessage.addListener((message: IMessage) => {
-      if (message.from === Sender.POPUP) {
-        this.config = message.data;
-
-        this.recreateQueries();
-      }
-    });
-  }
-
-  /**
-   * Removes previous factories and creates new ones.
-   */
-  private recreateQueries(): void {
-    // stop and remove old listeners
-    while (this.factories.length > 0) {
-      const factory = this.factories.pop();
-      factory.clearTimer();
-      factory.clearObserver();
-    }
-
-    // recreate
-    this.listen();
   }
 }

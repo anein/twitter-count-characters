@@ -1,5 +1,6 @@
 import { Element } from '@/base/model/element';
 import { Style } from '@/content/common/constants/styles';
+import { Selector } from '@/content/common/constants/selectors';
 
 export class Counter extends Element {
   private __initialValue: number;
@@ -23,6 +24,10 @@ export class Counter extends Element {
 
       this.untouched();
     }
+  }
+
+  public hide() {
+    //
   }
 
   public addStyle(...styles: string[]): void {

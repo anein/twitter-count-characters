@@ -1,7 +1,5 @@
-import { Button } from '@/base/model/button';
 import { Circle } from '@/base/model/circle';
 import { Counter } from '@/base/model/counter';
-import { Limit } from '@/content/common/constants/limits';
 import { Selector, TD_Selector } from '@/content/common/constants/selectors';
 import { Style } from '@/content/common/constants/styles';
 import { BaseListener } from './base.listener';
@@ -48,6 +46,10 @@ export class TweetdeckListener extends BaseListener {
     });
 
     this.observer.observe(sourceCounter.get(), { childList: true, subtree: true });
+  }
+
+  public onOptionsUpdate() {
+    // do nothing;
   }
 
   /**

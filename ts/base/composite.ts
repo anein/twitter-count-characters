@@ -20,10 +20,11 @@ export class Composite implements IElement {
    *
    * Removes an element from composition
    *
-   * @param id {number} - element id
    */
-  public remove(id: number): void {
-    this.children.splice(id, 1);
+  public remove(): void {
+    for (const element of this.children) {
+      element.remove();
+    }
   }
 
   /**

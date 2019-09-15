@@ -5,7 +5,10 @@ import { WEB_Selector } from '@/content/common/constants/selectors';
 import { BaseListener } from './base.listener';
 
 export class WebListener extends BaseListener {
+  private root = null;
+
   public draw(element: HTMLElement): void {
+    this.root = element;
     // get a circle indicator to catch the text changes
     const circle = new Circle(element.querySelector(WEB_Selector.CIRCLE));
 
@@ -16,37 +19,49 @@ export class WebListener extends BaseListener {
     const counter = new Counter();
     counter.initValue = Limit.LONG;
 
-    element.insertBefore(counter.get(), circle.get().parentNode);
-    element.insertBefore(progressbar.get(), circle.get().parentNode);
+    element.insertBefore(counter.get(), circle.get().parentElement);
+    element.insertBefore(progressbar.get(), circle.get().parentElement);
 
-    // after we added our fake circle, we hide the original circle
+    // after we cloned our fake circle, we hide the original circle
     circle.hide(1);
 
-    this.options.hideCircle ? progressbar.hide(0) : this.controlElements.add(progressbar);
-
+    this.controlElements.add(progressbar);
     this.controlElements.add(counter);
 
-    // update the counter if there was a draft.
-    this.updateCounter(this.getLengthFromReactInstance(element));
+    // update the counter if there was a draft
+    this.onOptionsUpdate();
 
     // set observer to listen the changes of text.
     this.observer = new MutationObserver(() => {
-      // update the progressbar. In fact, here we get stroke width of the source circle and set it to our fake circle.
+      // update the progressbar. In fact, here we get stroke width of the source circle and set it to our fake circle
       progressbar.setStyle(circle.getStyle());
 
       // update the counter
-      const count = this.getLengthFromReactInstance(element);
-      this.updateCounter(count);
+      this.updateCounter(this.getLengthFromReactInstance(element));
     });
 
     this.observer.observe(circle.get(), { attributes: true, childList: true, subtree: true });
 
-    // It's need to catch changes when the length of tweet  have exceeded the max length
-    this.observer.observe(circle.get().parentNode.lastChild, {
+    // It's needed to catch changes when the length of tweet  have exceeded the max length
+    this.observer.observe(circle.get().parentElement.lastChild, {
       childList: true,
       characterData: true,
       subtree: true,
     });
+  }
+
+  public onOptionsUpdate() {
+    if (!this.root) {
+      return;
+    }
+
+    if (this.options.hideCircle) {
+      this.controlElements.hide();
+    } else {
+      this.controlElements.show();
+    }
+
+    this.updateCounter(this.getLengthFromReactInstance(this.root));
   }
 
   /**

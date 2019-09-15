@@ -31,9 +31,9 @@ export interface IListener {
   draw: (element: HTMLElement) => void;
 
   /**
-   * Stops setInterval
+   * This method will be called If the state of the options will be updated.
    */
-  clearTimer: () => void;
+  onOptionsUpdate: () => void;
 
   /**
    * Disconnects the observer from element

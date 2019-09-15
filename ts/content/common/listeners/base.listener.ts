@@ -1,12 +1,13 @@
 import { Composite } from '@/base/composite';
 import { IOptions } from '@/base/interface/options';
 import { Selector } from '@/content/common/constants/selectors';
-import { IListener } from '@/content/common/interface/listener';
+import { IListener } from '@/content/common/listeners/base/interface/listener';
+import { Listener } from '@/content/common/listeners/base/listener';
 
 /**
  * TODO: refactoring.
  */
-export abstract class BaseListener implements IListener {
+export abstract class BaseListener extends Listener implements IListener {
   // Default timeout for the listener.
   public timeout: number = 100;
 
@@ -14,9 +15,6 @@ export abstract class BaseListener implements IListener {
 
   // attached observer
   protected observer: MutationObserver = null;
-
-  //
-  protected checkObserver: boolean = true;
 
   private __options: IOptions;
 
@@ -39,38 +37,31 @@ export abstract class BaseListener implements IListener {
   }
 
   public set options(value: IOptions) {
-    this.__options = value;
+    if (this.__options) {
+      this.__options = value;
+      this.onOptionsUpdate();
+    } else {
+      this.__options = value;
+    }
   }
 
   public get options(): IOptions {
     return this.__options;
   }
 
-  public abstract draw(element: HTMLElement): void;
-
   public listen(): void {
-    this.clearTimer();
-
     this.__timerId = setInterval(() => {
-      if (this.element && !this.element.querySelector('.ein-counter')) {
+      if (this.element && !this.element.querySelector(Selector.COUNTER)) {
         this.draw(this.element);
       } else if (this.element === null && this.observer) {
+        // remove the observer when the element or a parent of the element was removed from the dom.
+        // this is mainly needed in that case when the element is a child of the model dialog.
         this.clearObserver();
       } else {
         // o_O, or for some other purposes
       }
     }, this.timeout);
   }
-
-  /**
-   * Clears timer if it was set.
-   */
-  public clearTimer(): void {
-    if (this.__timerId) {
-      clearInterval(this.__timerId);
-    }
-  }
-
   /**
    * Clears the observer object if it was set.
    */
@@ -82,24 +73,10 @@ export abstract class BaseListener implements IListener {
   }
 
   /**
-   * Removes any cloned buttons from container using the `Selector.BUTTON_CLONE` selector.
-   *
-   * @param {HTMLElement} container - container of buttons
-   */
-  public removeClonedButtons(container: HTMLElement): void {
-    const elements = container.getElementsByClassName(Selector.BUTTON_CLONE) as any;
-
-    for (const item of elements) {
-      item.remove();
-    }
-  }
-
-  /**
    * Sets length to the counter block, and styles to the circle and counter blocks
-   * .
    */
   protected updateCounter(length: number) {
-    const value = this.options.maxLength - length;
+    const value = this.__options.maxLength - length;
 
     this.controlElements.setText(value);
 
@@ -118,7 +95,7 @@ export abstract class BaseListener implements IListener {
       this.controlElements.enable();
       if (length === 0) {
         this.controlElements.danger();
-      } else if (length > 0 && length <= this.options.warnLength) {
+      } else if (length > 0 && length <= this.__options.warnLength) {
         this.controlElements.warn();
       } else {
         this.controlElements.clear();

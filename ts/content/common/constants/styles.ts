@@ -8,7 +8,7 @@ export enum Style {
   T_HIDE = 'is-hidden',
   HIDE = 'hide',
   DISABLE = 'is-disabled',
-  COUNTER = 'ein-counter',
+  COUNTER = 'zen-counter',
   COLOR_TOUCHED = 'rgb(101, 119, 134)',
   COLOR_UNTOUCHED = 'rgb(204, 214, 221)',
 }

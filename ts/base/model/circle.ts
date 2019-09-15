@@ -17,11 +17,14 @@ export class Circle extends Element {
   }
 
   public show(): void {
-    if (this.element.parentElement.classList.contains(Style.HIDE)) {
-      this.element.parentElement.classList.remove(Style.HIDE);
-    } else {
-      this.element.parentElement.parentElement.classList.remove(Style.HIDE);
-    }
+    this.element.parentElement.classList.remove(Style.HIDE);
+    this.element.classList.remove(Style.HIDE);
+
+    // if (this.element.parentElement.classList.contains(Style.HIDE)) {
+    //   this.element.parentElement.classList.remove(Style.HIDE);
+    // } else {
+    //   this.element.parentElement.parentElement.classList.remove(Style.HIDE);
+    // }
   }
 
   public hide(level: number = 0): void {
@@ -42,6 +45,10 @@ export class Circle extends Element {
 
   public clear(): void {
     this.progressbar.classList.remove(Style.WARN, Style.DANGER, Style.T_PULSE, Style.T_A_PULSE);
+  }
+
+  public remove(): void {
+    this.element.parentNode.removeChild(this.element);
   }
 
   public pulse(): void {
