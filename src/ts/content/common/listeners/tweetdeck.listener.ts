@@ -1,20 +1,20 @@
-import { Circle } from '@/base/model/circle';
-import { Counter } from '@/base/model/counter';
-import { TD_Selector } from '@/content/common/constants/selectors';
-import { Style } from '@/content/common/constants/styles';
-import { BaseListener } from './base.listener';
+import { Circle } from '@base/model/circle';
+import { Counter } from '@base/model/counter';
+import { TD_Selector } from '@content/common/constants/selectors';
+import { Style } from '@content/common/constants/styles';
+import { BaseListener } from '@content/common/listeners/base.listener';
 
 export class TweetdeckListener extends BaseListener {
-  protected sourceCounter: Counter;
+  private _sourceCounter: Counter;
 
   public draw(element: HTMLElement): void {
-    this.sourceCounter = new Counter(element.querySelector(TD_Selector.SOURCE_COUNTER));
+    this._sourceCounter = new Counter(element.querySelector(TD_Selector.SOURCE_COUNTER));
     const circle = new Circle(element.querySelector(TD_Selector.CIRCLE));
 
     // create the counter
     const counter = new Counter();
     const styles = [
-      ...Array.from(this.sourceCounter.get().classList).filter((item: string) => item !== Style.T_HIDE),
+      ...Array.from(this._sourceCounter.get().classList).filter((item: string) => item !== Style.T_HIDE),
     ] as string[];
 
     counter.addStyle(styles);
@@ -25,19 +25,19 @@ export class TweetdeckListener extends BaseListener {
 
     element.insertBefore(counter.get(), circle.get().parentElement);
 
-    this.sourceCounter.addStyle([Style.HIDE]);
+    this._sourceCounter.addStyle([Style.HIDE]);
     this.onOptionsUpdate();
 
     // set observer to listen the changes of counter text.
     this.observer = new MutationObserver(() => {
-      this.updateCounter(this.sourceCounter.length());
+      this.updateCounter(this._sourceCounter.length());
     });
 
-    this.observer.observe(this.sourceCounter.get(), { childList: true, subtree: true });
+    this.observer.observe(this._sourceCounter.get(), { childList: true, subtree: true });
   }
 
   public onOptionsUpdate() {
-    if (!this.sourceCounter) {
+    if (!this._sourceCounter) {
       return;
     }
 
@@ -47,7 +47,7 @@ export class TweetdeckListener extends BaseListener {
       this.controlElements.show();
     }
 
-    this.updateCounter(this.sourceCounter.length());
+    this.updateCounter(this._sourceCounter.length());
   }
 
   protected updateCounter(length: number) {

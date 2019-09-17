@@ -1,6 +1,5 @@
-import { IElement } from '@/base/model/interface/element';
-import { Selector } from '@/content/common/constants/selectors';
-import { Style } from '@/content/common/constants/styles';
+import { IElement } from '@base/model/interface/element';
+import { Style } from '@content/common/constants/styles';
 
 export class Element implements IElement {
   constructor(public element: HTMLElement | any = null) {}

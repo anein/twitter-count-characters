@@ -1,4 +1,4 @@
-import { IElement } from '@/base/model/interface/element';
+import { IElement } from '@base/model/interface/element';
 
 export class Composite implements IElement {
   private children: IElement[] = [];

@@ -1,4 +1,3 @@
-import { IMessage } from "@/base/interface/message";
 import { Sender } from "@/base/senders";
 
 (() => {

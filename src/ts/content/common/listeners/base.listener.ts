@@ -1,12 +1,9 @@
-import { Composite } from '@/base/composite';
-import { IOptions } from '@/base/interface/options';
-import { Selector } from '@/content/common/constants/selectors';
-import { IListener } from '@/content/common/listeners/base/interface/listener';
-import { Listener } from '@/content/common/listeners/base/listener';
+import { Composite } from '@base/composite';
+import { IOptions } from '@base/interface/options';
+import { Selector } from '@content/common/constants/selectors';
+import { IListener } from '@content/common/listeners/base/interface/listener';
+import { Listener } from '@content/common/listeners/base/listener';
 
-/**
- * TODO: refactoring.
- */
 export abstract class BaseListener extends Listener implements IListener {
   // Default timeout for the listener.
   public timeout: number = 100;
@@ -16,20 +13,20 @@ export abstract class BaseListener extends Listener implements IListener {
   // attached observer
   protected observer: MutationObserver = null;
 
-  private __options: IOptions;
+  private _options: IOptions;
 
   // timer id
-  private __timerId: any;
+  private _timerId: any;
 
   // DOM query expression, e.g. `.my-class`
-  private __query: string;
+  private _query: string;
 
   public get query(): string {
-    return this.__query;
+    return this._query;
   }
 
   public set query(value: string) {
-    this.__query = value;
+    this._query = value;
   }
 
   public get element(): HTMLElement | null {
@@ -37,20 +34,20 @@ export abstract class BaseListener extends Listener implements IListener {
   }
 
   public set options(value: IOptions) {
-    if (this.__options) {
-      this.__options = value;
+    if (this._options) {
+      this._options = value;
       this.onOptionsUpdate();
     } else {
-      this.__options = value;
+      this._options = value;
     }
   }
 
   public get options(): IOptions {
-    return this.__options;
+    return this._options;
   }
 
   public listen(): void {
-    this.__timerId = setInterval(() => {
+    this._timerId = setInterval(() => {
       if (this.element && !this.element.querySelector(Selector.COUNTER)) {
         this.draw(this.element);
       } else if (this.element === null && this.observer) {
@@ -76,7 +73,7 @@ export abstract class BaseListener extends Listener implements IListener {
    * Sets length to the counter block, and styles to the circle and counter blocks
    */
   protected updateCounter(length: number) {
-    const value = this.__options.maxLength - length;
+    const value = this._options.maxLength - length;
 
     this.controlElements.setText(value);
 
@@ -95,7 +92,7 @@ export abstract class BaseListener extends Listener implements IListener {
       this.controlElements.enable();
       if (length === 0) {
         this.controlElements.danger();
-      } else if (length > 0 && length <= this.__options.warnLength) {
+      } else if (length > 0 && length <= this._options.warnLength) {
         this.controlElements.warn();
       } else {
         this.controlElements.clear();

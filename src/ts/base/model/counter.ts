@@ -1,17 +1,17 @@
 import { Element } from '@/base/model/element';
-import { Style } from '@/content/common/constants/styles';
+import { Style } from '@content/common/constants/styles';
 
 export class Counter extends Element {
-  private __initialValue: number;
-  private __value: number;
+  private _initialValue: number;
+  private _value: number;
 
   public set initValue(value: number) {
-    this.__initialValue = value;
+    this._initialValue = value;
     this.element.innerText = value;
   }
 
   public set value(value: string) {
-    this.__value = ~~value;
+    this._value = ~~value;
   }
 
   public constructor(public element: HTMLElement | any = null) {
@@ -36,7 +36,7 @@ export class Counter extends Element {
   public clear(...additionalClasses): void {
     super.clear(...additionalClasses);
 
-    if (this.__initialValue === this.__value) {
+    if (this._initialValue === this._value) {
       this.untouched();
     } else {
       this.touched();

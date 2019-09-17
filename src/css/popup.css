@@ -4,8 +4,9 @@
   --color-option-active: #28a745;
 }
 
-html, body {
-  background: var(--color-background)
+html,
+body {
+  background: var(--color-background);
 }
 
 .container {
@@ -16,7 +17,7 @@ hr {
   margin: 10px 0;
 }
 
-input[disabled]{
+input[disabled] {
   cursor: default;
 }
 
@@ -33,15 +34,13 @@ input[disabled]{
   opacity: 0.5;
 }
 
-.disabled .onoffswitch-label{
+.disabled .onoffswitch-label {
   cursor: default;
 }
 
 .option-item {
-  color: var(--color-text)
+  color: var(--color-text);
 }
-
-
 
 .onoffswitch {
   position: relative;
@@ -62,17 +61,17 @@ input[disabled]{
   line-height: 14px;
   border: 2px solid rgb(153, 153, 153);
   border-radius: 14px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   transition: background-color 0.3s ease-in;
 }
 
 .onoffswitch-label:before {
-  content: "";
+  content: '';
   display: block;
   width: 14px;
   height: 14px;
   margin: 0px;
-  background: #FFFFFF;
+  background: #ffffff;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -86,7 +85,8 @@ input[disabled]{
   background-color: var(--color-option-active);
 }
 
-.onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before {
+.onoffswitch-checkbox:checked + .onoffswitch-label,
+.onoffswitch-checkbox:checked + .onoffswitch-label:before {
   border-color: var(--color-option-active);
 }
 

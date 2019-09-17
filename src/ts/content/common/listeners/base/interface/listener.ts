@@ -1,5 +1,5 @@
-import { IOptions } from '@/base/interface/options';
-import { IElement } from '@/base/model/interface/element';
+import { IOptions } from '../../../../../base/interface/options';
+import { IElement } from '../../../../../base/model/interface/element';
 
 export interface IListener {
   /**

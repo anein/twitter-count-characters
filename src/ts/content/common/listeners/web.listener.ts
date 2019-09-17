@@ -1,14 +1,14 @@
-import { Circle } from '@/base/model/circle';
-import { Counter } from '@/base/model/counter';
-import { Limit } from '@/content/common/constants/limits';
-import { WEB_Selector } from '@/content/common/constants/selectors';
-import { BaseListener } from './base.listener';
+import { Circle } from '@base/model/circle';
+import { Counter } from '@base/model/counter';
+import { Limit } from '@content/common/constants/limits';
+import { WEB_Selector } from '@content/common/constants/selectors';
+import { BaseListener } from '@content/common/listeners/base.listener';
 
 export class WebListener extends BaseListener {
-  private root = null;
+  private _root = null;
 
   public draw(element: HTMLElement): void {
-    this.root = element;
+    this._root = element;
     // get a circle indicator to catch the text changes
     const circle = new Circle(element.querySelector(WEB_Selector.CIRCLE));
 
@@ -51,7 +51,7 @@ export class WebListener extends BaseListener {
   }
 
   public onOptionsUpdate() {
-    if (!this.root) {
+    if (!this._root) {
       return;
     }
 
@@ -61,7 +61,7 @@ export class WebListener extends BaseListener {
       this.controlElements.show();
     }
 
-    this.updateCounter(this.getLengthFromReactInstance(this.root));
+    this.updateCounter(this.getLengthFromReactInstance(this._root));
   }
 
   /**

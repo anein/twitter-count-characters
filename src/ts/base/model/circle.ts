@@ -1,7 +1,5 @@
 import { Element } from '@/base/model/element';
-import { IElement } from '@/base/model/interface/element';
-import { Selector } from '@/content/common/constants/selectors';
-import { Style } from '@/content/common/constants/styles';
+import { Style } from '@content/common/constants/styles';
 
 export class Circle extends Element {
   // store a circle element that is filled by color
@@ -19,12 +17,6 @@ export class Circle extends Element {
   public show(): void {
     this.element.parentElement.classList.remove(Style.HIDE);
     this.element.classList.remove(Style.HIDE);
-
-    // if (this.element.parentElement.classList.contains(Style.HIDE)) {
-    //   this.element.parentElement.classList.remove(Style.HIDE);
-    // } else {
-    //   this.element.parentElement.parentElement.classList.remove(Style.HIDE);
-    // }
   }
 
   public hide(level: number = 0): void {

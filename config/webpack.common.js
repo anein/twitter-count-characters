@@ -5,7 +5,7 @@ const plugins = require('./helpers.plugins');
 module.exports = {
   cache : false,
   target: "web",
-
+  context: helpers.root('src/'),
   module : {
     rules: [
       {

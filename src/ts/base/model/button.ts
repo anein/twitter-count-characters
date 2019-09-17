@@ -1,6 +1,4 @@
 import { Element } from '@/base/model/element';
-import { Selector } from '@/content/common/constants/selectors';
-import { Style } from '@/content/common/constants/styles';
 
 export class Button extends Element {
   public disable(): void {

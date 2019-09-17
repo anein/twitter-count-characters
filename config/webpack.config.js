@@ -5,10 +5,10 @@ const webpackCommonConfig = require('./webpack.common');
 module.exports = [
   plugins.webpackMerge(webpackCommonConfig, {
     entry: {
-      popup: [helpers.root('ts/', 'popup.ts')],
-      tweetdeck: helpers.root('ts/content', 'tweetdeck.ts'),
-      web: helpers.root('ts/content', 'web.ts'),
-      'scripts/web': helpers.root('ts/content/scripts', 'web.ts'),
+      popup: ['./ts/popup.ts'],
+      // tweetdeck: helpers.root('ts/content', 'tweetdeck.ts'),
+      // web: helpers.root('ts/content', 'web.ts'),
+      // 'scripts/web': helpers.root('ts/content/scripts', 'web.ts'),
     },
 
     output: {
@@ -18,14 +18,14 @@ module.exports = [
 
     resolve: {
       alias: {
-        '@': helpers.root('ts/'),
+        '@': helpers.root('src/ts/'),
       },
     },
   }),
   plugins.webpackMerge(webpackCommonConfig, {
     entry: {
-      popup: helpers.root('css/', 'popup.css'),
-      content: helpers.root('css/', 'content.css'),
+      popup: './css/popup.css',
+      content: './css/content.css',
     },
 
     output: {
@@ -37,7 +37,7 @@ module.exports = [
       new plugins.ExtractTextPlugin('css/[name].css'),
       new plugins.HtmlWebpackPlugin({
         filename: 'html/popup.html',
-        template: helpers.root('html', '/popup.html'),
+        template: './html/popup.html',
         inject: false,
         minify: {
           removeAttributeQuotes: true,
@@ -67,7 +67,7 @@ module.exports = [
           //   from: 'css', to: "css"
           // },
           {
-            from: '_locales',
+            from: '../_locales',
             to: '_locales',
           },
         ],

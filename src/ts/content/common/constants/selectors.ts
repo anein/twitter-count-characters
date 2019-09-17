@@ -1,14 +1,10 @@
 export enum Selector {
   COUNTER = '.zen-counter',
-  CIRCLE = 'js-progress-circle',
-  TEXTAREA = 'textarea',
-  BUTTON_CLONE = 'button-clone',
 }
 
 export enum TD_Selector {
   SOURCE_COUNTER = '.js-character-count',
   CIRCLE = '.js-progress-svg svg',
-  BUTTON = 'js-send-button',
 }
 export enum WEB_Selector {
   ROOT = '#react-root',
