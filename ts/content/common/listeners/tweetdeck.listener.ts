@@ -1,82 +1,60 @@
 import { Circle } from '@/base/model/circle';
 import { Counter } from '@/base/model/counter';
-import { Selector, TD_Selector } from '@/content/common/constants/selectors';
+import { TD_Selector } from '@/content/common/constants/selectors';
 import { Style } from '@/content/common/constants/styles';
 import { BaseListener } from './base.listener';
 
 export class TweetdeckListener extends BaseListener {
-  protected checkObserver: boolean = false;
+  protected sourceCounter: Counter;
 
   public draw(element: HTMLElement): void {
-    let counter = new Counter(element.getElementsByClassName(Selector.COUNTER)[0]);
+    this.sourceCounter = new Counter(element.querySelector(TD_Selector.SOURCE_COUNTER));
+    const circle = new Circle(element.querySelector(TD_Selector.CIRCLE));
 
-    // check if there's our counter in DOM
-    if (counter.notEmpty() && this.controlElements.notEmpty()) {
-      return;
-    }
+    // create the counter
+    const counter = new Counter();
+    const styles = [
+      ...Array.from(this.sourceCounter.get().classList).filter((item: string) => item !== Style.T_HIDE),
+    ] as string[];
 
-    const sourceCounter = new Counter(element.getElementsByClassName(TD_Selector.SOURCE_COUNTER)[0]);
-
-    // get or create a new element to display OUR awesome counter
-    // it's needed to not change the source counter element.
-    if (!counter.notEmpty()) {
-      counter = new Counter(sourceCounter.clone());
-      counter.addStyle(Selector.COUNTER);
-      counter.clear(TD_Selector.SOURCE_COUNTER, Style.T_HIDE, Style.T_RED);
-
-      sourceCounter.hide();
-      sourceCounter.get().parentElement.appendChild(counter.get());
-    }
+    counter.addStyle(styles);
+    counter.initValue = this.options.maxLength;
 
     this.controlElements.add(counter);
+    this.controlElements.add(circle);
 
-    const length = sourceCounter.length();
+    element.insertBefore(counter.get(), circle.get().parentElement);
 
-    this.renderCircle(element);
-    // this.renderSubmitButton(element);
-
-    this.updateCounter(length);
-
-    // clear observer, just in case
-    this.clearObserver();
+    this.sourceCounter.addStyle([Style.HIDE]);
+    this.onOptionsUpdate();
 
     // set observer to listen the changes of counter text.
     this.observer = new MutationObserver(() => {
-      this.updateCounter(sourceCounter.length());
+      this.updateCounter(this.sourceCounter.length());
     });
 
-    this.observer.observe(sourceCounter.get(), { childList: true, subtree: true });
+    this.observer.observe(this.sourceCounter.get(), { childList: true, subtree: true });
   }
 
   public onOptionsUpdate() {
-    // do nothing;
-  }
-
-  /**
-   * Renders the circle if the `hide circle` flag is enabled, otherwise hide the circle!
-   *
-   * @param element
-   */
-  private renderCircle(element: HTMLElement) {
-    const circle = new Circle(element.getElementsByClassName(Selector.CIRCLE)[0]);
+    if (!this.sourceCounter) {
+      return;
+    }
 
     if (this.options.hideCircle) {
-      circle.hide();
+      this.controlElements.hide();
     } else {
-      this.controlElements.add(circle);
+      this.controlElements.show();
     }
+
+    this.updateCounter(this.sourceCounter.length());
   }
-  //
-  // /**
-  //  * Gets the submit button, and adds it to the control collection if the 140 mode is enabled.
-  //  */
-  // private renderSubmitButton(element: HTMLElement) {
-  //   // get the submit button
-  //   const button = new Button(element.parentElement.getElementsByClassName(TD_Selector.BUTTON)[0]);
-  //   if (this.options.mode) {
-  //     this.controlElements.add(button);
-  //   } else {
-  //     button.enable();
-  //   }
-  // }
+
+  protected updateCounter(length: number) {
+    const value = length;
+
+    this.controlElements.setText(value);
+
+    this.setStyles(value);
+  }
 }

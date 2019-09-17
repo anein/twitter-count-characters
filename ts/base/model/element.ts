@@ -17,7 +17,7 @@ export class Element implements IElement {
   }
 
   public show(): void {
-    this.element.classList.remove(Style.HIDE);
+    this.element.classList.remove(Style.HIDE, Style.T_HIDE);
   }
 
   public hide(): void {

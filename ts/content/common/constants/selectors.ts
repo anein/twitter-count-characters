@@ -6,7 +6,8 @@ export enum Selector {
 }
 
 export enum TD_Selector {
-  SOURCE_COUNTER = 'js-character-count',
+  SOURCE_COUNTER = '.js-character-count',
+  CIRCLE = '.js-progress-svg svg',
   BUTTON = 'js-send-button',
 }
 export enum WEB_Selector {
