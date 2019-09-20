@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "stylelint-prettier/recommended"
+  ],
+  "plugins": [
+    "stylelint-prettier",
+    "stylelint-color-format",
+    "stylelint-order"
+  ],
+  "rules": {
+    "prettier/prettier": true,
+    "color-format/format": {
+      "format": "rgb"
+    },
+    "order/properties-alphabetical-order": true,
+    "indentation": 2,
+    "unit-whitelist": [
+      "em",
+      "rem",
+      "s",
+      "%",
+      "px"
+    ]
+  }
+}

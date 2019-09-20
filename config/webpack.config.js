@@ -6,9 +6,8 @@ module.exports = [
   plugins.webpackMerge(webpackCommonConfig, {
     entry: {
       popup: ['./ts/popup.ts'],
-      // tweetdeck: helpers.root('ts/content', 'tweetdeck.ts'),
-      // web: helpers.root('ts/content', 'web.ts'),
-      // 'scripts/web': helpers.root('ts/content/scripts', 'web.ts'),
+      tweetdeck: ['./ts/content/tweetdeck.ts'],
+      web: ['./ts/content/web.ts'],
     },
 
     output: {
@@ -19,6 +18,8 @@ module.exports = [
     resolve: {
       alias: {
         '@': helpers.root('src/ts/'),
+        '@content': helpers.root('src/ts/content'),
+        '@base': helpers.root('src/ts/base'),
       },
     },
   }),
@@ -60,12 +61,6 @@ module.exports = [
             from: 'img',
             to: 'img',
           },
-          // {
-          //   from: 'html', to: "html"
-          // },
-          // {
-          //   from: 'css', to: "css"
-          // },
           {
             from: '../_locales',
             to: '_locales',

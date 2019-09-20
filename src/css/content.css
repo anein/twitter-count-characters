@@ -4,8 +4,8 @@
 }
 
 .is-danger {
-  color: #e0245e !important;
-  stroke: #e0245e !important;
+  color: rgb(224, 36, 94) !important;
+  stroke: rgb(224, 36, 94) !important;
 }
 
 .hide {
@@ -13,13 +13,13 @@
 }
 
 .is-disabled {
-  opacity: 0.5;
   cursor: default !important;
+  opacity: 0.5;
 }
 
 button.is-disabled {
-  opacity: 0.3;
   cursor: not-allowed !important;
+  opacity: 0.3;
 }
 
 .padding-xs {

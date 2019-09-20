@@ -12,7 +12,11 @@ export class Button extends Element {
     this.element.removeAttribute('disabled');
   }
 
-  public warn(): void {}
+  public warn(): void {
+    //
+  }
 
-  public danger(): void {}
+  public danger(): void {
+    //
+  }
 }

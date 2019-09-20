@@ -1,9 +1,15 @@
 {
   "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
-  "extends": ["tslint:latest", "tslint-microsoft-contrib/recommended", "tslint-config-prettier"],
+  "extends": [
+    "tslint:latest",
+    "tslint-microsoft-contrib/recommended",
+    "tslint-plugin-prettier",
+    "tslint-config-prettier"
+  ],
   "defaultSeverity": "error",
   "jsRules": {},
   "rules": {
+    "prettier": true,
     "export-name": false,
     "no-backbone-get-set-outside-model": false,
     "no-bitwise": false,
@@ -17,7 +23,6 @@
     "prefer-type-cast": false,
     "no-relative-imports": true,
     "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"],
-
     "function-name": [
       true,
       {

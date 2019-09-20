@@ -1,4 +1,4 @@
 export enum ListenerKind {
-    Web,
-    Tweetdeck,
+  Web,
+  Tweetdeck,
 }

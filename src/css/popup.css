@@ -1,7 +1,7 @@
 :root {
   --color-text: rgba(0, 0, 0, 0.8);
-  --color-background: whitesmoke;
-  --color-option-active: #28a745;
+  --color-background: rgb(245, 245, 245);
+  --color-option-active: rgb(40, 167, 69);
 }
 
 html,
@@ -22,12 +22,12 @@ input[disabled] {
 }
 
 .grid {
+  align-items: center;
   display: grid;
-  grid-template-columns: 150px 60px;
-  grid-template-rows: 100%;
   grid-column-gap: 2px;
   grid-row-gap: 10px;
-  align-items: center;
+  grid-template-columns: 150px 60px;
+  grid-template-rows: 100%;
 }
 
 .grid.disabled {
@@ -43,9 +43,9 @@ input[disabled] {
 }
 
 .onoffswitch {
+  margin: 0 auto;
   position: relative;
   width: 40px;
-  margin: 0 auto;
 }
 
 .onoffswitch-checkbox {
@@ -53,32 +53,32 @@ input[disabled] {
 }
 
 .onoffswitch-label {
-  display: block;
-  overflow: hidden;
-  cursor: pointer;
-  height: 14px;
-  padding: 0;
-  line-height: 14px;
+  background-color: rgb(238, 238, 238);
   border: 2px solid rgb(153, 153, 153);
   border-radius: 14px;
-  background-color: #eeeeee;
+  cursor: pointer;
+  display: block;
+  height: 14px;
+  line-height: 14px;
+  overflow: hidden;
+  padding: 0;
   transition: background-color 0.3s ease-in;
 }
 
 .onoffswitch-label:before {
+  background: rgb(255, 255, 255);
+  border: 2px solid rgb(153, 153, 153);
+  border-radius: 14px;
+  bottom: 0;
   content: '';
   display: block;
-  width: 14px;
   height: 14px;
   margin: 0px;
-  background: #ffffff;
   position: absolute;
-  top: 0;
-  bottom: 0;
   right: 22px;
-  border: 2px solid #999999;
-  border-radius: 14px;
+  top: 0;
   transition: all 0.3s ease-in 0s;
+  width: 14px;
 }
 
 .onoffswitch-checkbox:checked + .onoffswitch-label {

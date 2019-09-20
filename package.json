@@ -6,8 +6,24 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": " webpack -p --config config/webpack.config.js",
-    "dev": " webpack --watch --hot --config config/webpack.config.js "
+    "build": "webpack -p --config config/webpack.config.js",
+    "dev": "webpack --watch --hot --config config/webpack.config.js",
+    "tslint": "tslint -c ./tslint.json -p ./src/ts/tsconfig.json ",
+    "tslint:fix": "yarn tslint --fix",
+    "stylelint": "stylelint --config ./.stylelintrc src/css ",
+    "stylelint:fix": "yarn stylelint --fix",
+    "lint": "yarn tslint & yarn stylelint",
+    "fix": "yarn tslint:fix & yarn stylelint:fix",
+    "format": "pretty-quick & yarn stylelint:fix"
+  },
+  "lint-staged": {
+    "*.ts": "tslint",
+    "*.css": "stylelint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint-staged"
+    }
   },
   "dependencies": {
     "@types/chrome": "^0.0.52",
@@ -30,13 +46,19 @@
     "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
     "stylelint": "^10.1.0",
     "stylelint-color-format": "^0.2.0",
+    "stylelint-config-prettier": "^5.2.0",
     "stylelint-high-performance-animation": "^1.2.1",
+    "stylelint-order": "^3.1.1",
     "stylelint-prettier": "^1.1.1",
     "stylelint-scss": "^3.10.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-microsoft-contrib": "^6.2.0"
+    "tslint-microsoft-contrib": "^6.2.0",
+    "tslint-plugin-prettier": "^2.0.1"
   }
 }

@@ -3,31 +3,31 @@ const helpers = require('./helpers.methods');
 const plugins = require('./helpers.plugins');
 
 module.exports = {
-  cache : false,
-  target: "web",
+  cache: false,
+  target: 'web',
   context: helpers.root('src/'),
-  module : {
+  module: {
     rules: [
       {
-        test   : /\.ts$/,
-        use    : "ts-loader",
-        exclude: [/\.(spec|e2e)\.ts$/]
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: [/\.(spec|e2e)\.ts$/],
       },
       {
-        test   : /\.css$/,
-        use    : plugins.ExtractTextPlugin.extract({
+        test: /\.css$/,
+        use: plugins.ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use     : [
-            {loader: 'css-loader', query: {importLoaders: 1}},
-            {loader: 'postcss-loader', query: {path: {config: 'config/postcss.config.js'}}}
-          ]
+          use: [
+            { loader: 'css-loader', query: { importLoaders: 1 } },
+            { loader: 'postcss-loader', query: { path: { config: 'config/postcss.config.js' } } },
+          ],
         }),
-        exclude: [/node_modules/]
-      }
-    ]
+        exclude: [/node_modules/],
+      },
+    ],
   },
   resolve: {
-    extensions: ['.ts', '.js', '.css']
+    extensions: ['.ts', '.js', '.css'],
   },
   plugins: [
     /**
@@ -39,12 +39,11 @@ module.exports = {
      * Defines externals.
      */
     new plugins.ExternalsPlugin({
-      type   : 'commonjs',
-      include: __dirname + '/node_modules'
+      type: 'commonjs',
+      include: __dirname + '/node_modules',
     }),
   ],
-  stats  : {
-    modules: false
-  }
-
+  stats: {
+    modules: false,
+  },
 };
