@@ -47,7 +47,7 @@ export abstract class BaseListener extends Listener implements IListener {
   }
 
   public listen(): void {
-    this._timerId = setInterval(() => {
+    const callback = () => {
       if (this.element && !this.element.querySelector(Selector.COUNTER)) {
         this.draw(this.element);
       } else if (this.element === null && this.observer) {
@@ -57,7 +57,10 @@ export abstract class BaseListener extends Listener implements IListener {
       } else {
         // o_O, or for some other purposes
       }
-    }, this.timeout);
+      requestAnimationFrame(callback);
+    };
+
+    requestAnimationFrame(callback);
   }
   /**
    * Clears the observer object if it was set.

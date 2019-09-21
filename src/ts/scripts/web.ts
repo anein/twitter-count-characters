@@ -1,6 +1,6 @@
-import { ListenerKind } from '@/content/common/constants/kinds';
-import { WEB_Selector } from '@/content/common/constants/selectors';
-import { ListenerFactory } from '@/content/common/factory';
+import { ListenerKind } from '@content/common/constants/kinds';
+import { WEB_Selector } from '@content/common/constants/selectors';
+import { ListenerFactory } from '@content/common/factory';
 
 (() => {
   let creator: ListenerFactory;
@@ -19,7 +19,7 @@ import { ListenerFactory } from '@/content/common/factory';
   }
 
   /**
-   * Observes changes of the react root element to catch creation of the react app.
+   * Observes changes of the react root to catch creation of the react app.
    */
   function observeRootMutation() {
     const mutation = new MutationObserver(e => {

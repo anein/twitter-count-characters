@@ -8,6 +8,7 @@ module.exports = [
       popup: ['./ts/popup.ts'],
       tweetdeck: ['./ts/content/tweetdeck.ts'],
       web: ['./ts/content/web.ts'],
+      'scripts/web': ['./ts/scripts/web.ts'],
     },
 
     output: {
