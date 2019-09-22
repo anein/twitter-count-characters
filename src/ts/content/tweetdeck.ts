@@ -10,10 +10,10 @@ import { ListenerFactory } from '@/content/common/factory';
    * Get saved options and run our factory.
    */
   chrome.storage.sync.get((items: IConfig) => {
-    const { limit = false, mode = true, circle = false } = { ...items };
+    const { limit = false, circle = false } = { ...items };
 
     creator = new ListenerFactory();
-    creator.config = { limit, mode, circle };
+    creator.config = { limit, circle };
     creator.add(ListenerKind.Tweetdeck, '.compose .compose-text-container div:nth-child(2n)');
     // reply block
     creator.add(ListenerKind.Tweetdeck, '.inline-reply .compose-text-container div:nth-child(4)');

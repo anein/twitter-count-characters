@@ -19,7 +19,7 @@ module.exports = {
           fallback: 'style-loader',
           use: [
             { loader: 'css-loader', query: { importLoaders: 1 } },
-            { loader: 'postcss-loader', query: { path: { config: 'config/postcss.config.js' } } },
+            { loader: 'postcss-loader', options: { config: { path: './config/' } } },
           ],
         }),
         exclude: [/node_modules/],

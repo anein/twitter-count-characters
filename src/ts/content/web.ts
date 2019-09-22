@@ -8,8 +8,6 @@ import { WEB_Selector } from '@/content/common/constants/selectors';
    * Get saved options and run our factory.
    */
   chrome.storage.sync.get((items: IConfig) => {
-    const { limit = false, mode = true, circle = false } = { ...items };
-
     const body = document.getElementsByTagName('body')[0];
 
     const script = document.createElement('script');

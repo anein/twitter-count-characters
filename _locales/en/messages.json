@@ -1,14 +1,23 @@
 {
   "ext_name": {
-    "message": " Old School Twitter"
+    "message": "280 Twitter Counter"
   },
   "ext_short_name": {
-    "message": "280/140 character counter for tweets"
+    "message": "280 character counter for tweets"
   },
   "ext_description": {
-    "message": "Restores the 140-character limit, removes the circles, and more"
+    "message": "Adds the 280 character counter into your tweet form and provides the opportunity to show or hide the circle."
   },
   "ext_author": {
     "message": "Alexander Ein (@AlexanderEin)"
+  },
+  "popup_title": {
+    "message": "280 Twitter Counter: Options"
+  },
+  "popup_option_140_warning": {
+    "message": "Warning of 140 character limit"
+  },
+  "popup_option_hide_circle": {
+    "message": "Hide the circle"
   }
 }

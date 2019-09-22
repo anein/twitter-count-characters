@@ -1,7 +1,7 @@
 {
   "name": "twitter.characters",
-  "version": "0.5.0",
-  "description": "Extention displays the remaining number of characters that you can squeeze into a tweet",
+  "version": "3.0.0",
+  "description": "280 Twitter Counter adds the character counter into your tweet form, and provides the opportunity to show or hide the circle.",
   "author": "Alexander Ein (@alexanderein)",
   "license": "MIT",
   "private": false,
@@ -33,7 +33,6 @@
     "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "html-webpack-plugin": "^2.30.1",
-    "postcss-cssnext": "^3.0.2",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "style-loader": "^0.19.0",
@@ -48,6 +47,9 @@
   "devDependencies": {
     "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
+    "postcss": "^7.0.18",
+    "postcss-normalize": "^8.0.1",
+    "postcss-preset-env": "^6.7.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
     "stylelint": "^10.1.0",
