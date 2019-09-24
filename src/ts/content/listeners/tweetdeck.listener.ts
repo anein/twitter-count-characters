@@ -1,8 +1,8 @@
 import { Circle } from '@base/model/circle';
 import { Counter } from '@base/model/counter';
-import { TD_Selector } from '@content/common/constants/selectors';
-import { Style } from '@content/common/constants/styles';
-import { BaseListener } from '@content/common/listeners/base.listener';
+import { TD_Selector } from '@content/constants/selectors';
+import { Style } from '@content/constants/styles';
+import { BaseListener } from '@content/listeners/base.listener';
 
 export class TweetdeckListener extends BaseListener {
   private _sourceCounter: Counter;

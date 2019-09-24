@@ -6,15 +6,16 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "webpack -p --config config/webpack.config.js",
-    "dev": "webpack --watch --hot --config config/webpack.config.js",
+    "dev": "webpack --watch --config config/webpack.dev.js",
+    "build": "yarn clean && yarn lint && webpack --env.production --config config/webpack.dev.js",
     "tslint": "tslint -c ./tslint.json -p ./src/ts/tsconfig.json ",
     "tslint:fix": "yarn tslint --fix",
     "stylelint": "stylelint --config ./.stylelintrc src/css ",
     "stylelint:fix": "yarn stylelint --fix",
     "lint": "yarn tslint & yarn stylelint",
     "fix": "yarn tslint:fix & yarn stylelint:fix",
-    "format": "pretty-quick & yarn stylelint:fix"
+    "format": "pretty-quick & yarn stylelint:fix",
+    "clean": "yarn run rimraf ./build"
   },
   "lint-staged": {
     "*.ts": "tslint",
@@ -26,32 +27,35 @@
     }
   },
   "dependencies": {
-    "@types/chrome": "^0.0.52",
-    "@types/core-js": "^0.9.43",
-    "copy-webpack-plugin": "^4.2.0",
-    "css-loader": "^0.28.7",
-    "cssnano": "^3.10.0",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "html-webpack-plugin": "^2.30.1",
-    "postcss-import": "^11.0.0",
-    "postcss-loader": "^2.0.8",
-    "style-loader": "^0.19.0",
-    "ts-loader": "^3.1.1",
-    "tslint": "^5.8.0",
-    "typescript": "^2.6.1",
-    "webpack": "^3.8.1",
+    "@types/chrome": "^0.0.88",
+    "@types/core-js": "^2.5.2",
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^3.2.0",
+    "cssnano": "^4.1.10",
+    "html-webpack-plugin": "^3.2.0",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^1.0.0",
+    "ts-loader": "^6.1.2",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3",
+    "webpack": "^4.40.2",
     "webpack-externals-plugin": "^1.0.0",
-    "webpack-md5-hash": "^0.0.5",
-    "webpack-merge": "^4.1.1"
+    "webpack-md5-hash": "^0.0.6",
+    "webpack-merge": "^4.2.2"
   },
   "devDependencies": {
+    "friendly-errors-webpack-plugin": "^1.7.0",
     "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
+    "mini-css-extract-plugin": "^0.8.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss": "^7.0.18",
     "postcss-normalize": "^8.0.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1",
+    "rimraf": "^3.0.0",
     "stylelint": "^10.1.0",
     "stylelint-color-format": "^0.2.0",
     "stylelint-config-prettier": "^5.2.0",
@@ -61,6 +65,9 @@
     "stylelint-scss": "^3.10.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
-    "tslint-plugin-prettier": "^2.0.1"
+    "tslint-plugin-prettier": "^2.0.1",
+    "webpack-cli": "^3.3.9",
+    "webpack-extension-reloader": "^1.1.1",
+    "webpack-messages": "^2.0.4"
   }
 }

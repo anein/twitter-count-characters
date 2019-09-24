@@ -1,5 +1,5 @@
 import { Element } from '@/base/model/element';
-import { Style } from '@content/common/constants/styles';
+import { Style } from '@content/constants/styles';
 
 export class Circle extends Element {
   // store a circle element that is filled by color

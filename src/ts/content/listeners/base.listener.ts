@@ -1,8 +1,8 @@
 import { Composite } from '@base/composite';
 import { IOptions } from '@base/interface/options';
-import { Selector } from '@content/common/constants/selectors';
-import { IListener } from '@content/common/listeners/base/interface/listener';
-import { Listener } from '@content/common/listeners/base/listener';
+import { Selector } from '@content/constants/selectors';
+import { IListener } from '@content/listeners/base/interface/listener';
+import { Listener } from '@content/listeners/base/listener';
 
 export abstract class BaseListener extends Listener implements IListener {
   // Default timeout for the listener.

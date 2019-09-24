@@ -1,8 +1,8 @@
 import { Circle } from '@base/model/circle';
 import { Counter } from '@base/model/counter';
-import { Limit } from '@content/common/constants/limits';
-import { WEB_Selector } from '@content/common/constants/selectors';
-import { BaseListener } from '@content/common/listeners/base.listener';
+import { Limit } from '@content/constants/limits';
+import { WEB_Selector } from '@content/constants/selectors';
+import { BaseListener } from '@content/listeners/base.listener';
 
 export class WebListener extends BaseListener {
   private _root = null;

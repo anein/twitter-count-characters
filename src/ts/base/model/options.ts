@@ -1,6 +1,6 @@
 import { IConfig } from '@base/interface/config';
 import { IOptions } from '@base/interface/options';
-import { Limit } from '@content/common/constants/limits';
+import { Limit } from '@content/constants/limits';
 
 export class Options implements IOptions {
   public maxLength: number;

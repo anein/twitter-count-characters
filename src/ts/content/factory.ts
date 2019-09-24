@@ -1,9 +1,9 @@
-import { IConfig } from '@/base/interface/config';
-import { Options } from '@/base/model/options';
-import { ListenerKind } from '@/content/common/constants/kinds';
-import { IListener } from '@/content/common/listeners/base/interface/listener';
-import { TweetdeckListener } from '@/content/common/listeners/tweetdeck.listener';
-import { WebListener } from '@/content/common/listeners/web.listener';
+import { IConfig } from '@base/interface/config';
+import { Options } from '@base/model/options';
+import { ListenerKind } from '@content/constants/kinds';
+import { IListener } from '@content/listeners/base/interface/listener';
+import { TweetdeckListener } from '@content/listeners/tweetdeck.listener';
+import { WebListener } from '@content/listeners/web.listener';
 
 export class ListenerFactory {
   public config: IConfig;

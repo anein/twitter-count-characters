@@ -1,5 +1,5 @@
 import { IElement } from '@base/model/interface/element';
-import { Style } from '@content/common/constants/styles';
+import { Style } from '@content/constants/styles';
 
 export class Element implements IElement {
   constructor(public element: HTMLElement | any = null) {}

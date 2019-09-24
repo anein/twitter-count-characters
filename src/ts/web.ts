@@ -1,7 +1,7 @@
-import { IConfig } from '@/base/interface/config';
-import { IMessage } from '@/base/interface/message';
-import { Sender } from '@/base/senders';
-import { WEB_Selector } from '@/content/common/constants/selectors';
+import { IConfig } from '@base/interface/config';
+import { IMessage } from '@base/interface/message';
+import { Sender } from '@base/senders';
+import { WEB_Selector } from '@content/constants/selectors';
 
 (() => {
   /**

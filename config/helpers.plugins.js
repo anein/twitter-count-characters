@@ -81,13 +81,6 @@ exports.webpackMerge = require('webpack-merge');
 exports.ExternalsPlugin = require('webpack-externals-plugin');
 
 /**
- * Plugin: ExtractTextPlugin
- *
- * @description Extract text from bundle into a file.
- */
-exports.ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-/**
  * Plugin: WebpackMD5Hash
  *
  * @description Plugin to replace a standard webpack chunkhash with md5
@@ -96,4 +89,12 @@ exports.ExtractTextPlugin = require('extract-text-webpack-plugin');
  */
 exports.WebpackMD5Hash = require('webpack-md5-hash');
 
+exports.FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
+exports.WebpackMessages = require('webpack-messages');
+
+exports.MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+exports.OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+exports.ExtensionReloader = require('webpack-extension-reloader');

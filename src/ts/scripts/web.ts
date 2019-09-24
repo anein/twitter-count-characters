@@ -1,6 +1,6 @@
-import { ListenerKind } from '@content/common/constants/kinds';
-import { WEB_Selector } from '@content/common/constants/selectors';
-import { ListenerFactory } from '@content/common/factory';
+import { ListenerKind } from '@content/constants/kinds';
+import { WEB_Selector } from '@content/constants/selectors';
+import { ListenerFactory } from '@content/factory';
 
 (() => {
   let creator: ListenerFactory;
