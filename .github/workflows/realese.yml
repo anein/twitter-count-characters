@@ -2,8 +2,10 @@ name: Realese Action
 
 on:
   push:
+    branches:
+      - master
     tags:
-    - v*
+      - v*
 
 jobs:
   build:
