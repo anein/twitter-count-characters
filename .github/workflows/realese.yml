@@ -34,17 +34,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: "anein/twitter-count-characters"
         run: |
+          FILENAME=twitter_counter.$TAG_VERSION.zip
+          echo "$FILENAME"
           # Prepare the headers
           AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
-          CONTENT_LENGTH_HEADER="Content-Length: $(stat -c%s "${1}")"
+          CONTENT_LENGTH_HEADER="Content-Length: $(stat -c%s "$FILENAME")"
           CONTENT_TYPE_HEADER="Content-Type: application/zip"
 
           # Build the Upload URL from the various pieces
           RELEASE_ID=$(jq --raw-output '.release.id' $GITHUB_EVENT_PATH)
-          FILENAME=twitter_counter.$TAG_VERSION.zip
-          echo "$FILENAME"
-
-
+          
           UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}/assets?name=${FILENAME}"
           echo "$UPLOAD_URL"
 
