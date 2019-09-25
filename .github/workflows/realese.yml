@@ -25,7 +25,9 @@ jobs:
       - name: Run pack
         run: |
           # TAG_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`) || { echo "\⛔️ Unable to get a tag.\n"; exit 1;  };
-          echo ::set-env name=TAG_VERSION::2.0.0
+          TAG_VERSION=2.0.0
+          echo ::set-env name=TAG_VERSION::${TAG_VERSION}
+          echo $TAG_VERSION;
           zip -r twitter_counter.$TAG_VERSION.zip build/
           
       - name: Upload realese
