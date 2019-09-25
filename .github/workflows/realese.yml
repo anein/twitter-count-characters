@@ -1,0 +1,15 @@
+name: Realese Action
+
+on:
+  push:
+    branches:
+    - refs/tags/*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run Install
+        run: yarn install
