@@ -26,8 +26,6 @@ jobs:
         run: |
           # TAG_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`) || { echo "\⛔️ Unable to get a tag.\n"; exit 1;  };
           echo ::set-env name=TAG_VERSION::2.0.0
-          # TAG_VERSION=2.0.0
-          echo $TAG_VERSION
           zip -r twitter_counter.$TAG_VERSION.zip build/
           
       - name: Upload realese
@@ -35,11 +33,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: "anein/twitter-count-characters"
         run: |
+          ls -l
           FILENAME=twitter_counter.$TAG_VERSION.zip
           echo "$FILENAME"
           # Prepare the headers
           AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
-          CONTENT_LENGTH_HEADER="Content-Length: $(stat -c%s "$FILENAME")"
+          CONTENT_LENGTH_HEADER="Content-Length: $(stat -c%s "./$FILENAME")"
           CONTENT_TYPE_HEADER="Content-Type: application/zip"
 
           # Build the Upload URL from the various pieces
