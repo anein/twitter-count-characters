@@ -3,6 +3,7 @@ name: Realese Action
 on:
   push:
     branches:
+    - master
     - refs/tags/*
 
 jobs:
