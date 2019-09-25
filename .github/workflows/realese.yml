@@ -50,6 +50,7 @@ jobs:
           curl \
             -sSL \
             -XPOST \
+            -d "{'tag_version': '$TAG_VERSION'}" \
             -H "${AUTH_HEADER}" \
             -H "${CONTENT_LENGTH_HEADER}" \
             -H "${CONTENT_TYPE_HEADER}" \
