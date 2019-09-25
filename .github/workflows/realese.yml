@@ -24,5 +24,5 @@ jobs:
         
       - name: Run pack
         run: |
-          tag_version=  $(git describe --tags `git rev-list --tags --max-count=1`) || echo "Cann't get a tag. Exit" && exit;
+          tag_version=  $(git describe --tags `git rev-list --tags --max-count=1`) || exit $1;
           echo $tag_version
