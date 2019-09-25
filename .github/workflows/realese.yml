@@ -33,7 +33,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: "anein/twitter-count-characters"
-        run: ./..github/workflows/release_uploader.sh
+        run: ./.github/workflows/release_uploader.sh
 
           
         
