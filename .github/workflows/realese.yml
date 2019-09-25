@@ -3,6 +3,7 @@ name: Realese Action
 on:
   push:
     branches:
+    - master
     - refs/tags/*
 
 jobs:
@@ -12,4 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Run Install
-        run: yarn install
+        run: |
+          echo "Realese Action"
