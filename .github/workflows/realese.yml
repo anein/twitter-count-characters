@@ -30,9 +30,11 @@ jobs:
           zip -r twitter_counter.$TAG_VERSION.zip build/
           
       - name: Upload realese
-        uses: ./.github/workflows/release_uploader
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: "anein/twitter-count-characters"
+        run: ./..github/workflows/release_uploader.sh
+
+          
         
           
