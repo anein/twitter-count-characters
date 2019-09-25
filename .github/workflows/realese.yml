@@ -53,7 +53,7 @@ jobs:
             -H "${AUTH_HEADER}" \
             -H "${CONTENT_LENGTH_HEADER}" \
             -H "${CONTENT_TYPE_HEADER}" \
-            --upload-file "${FILENAME}" \
+            --upload-file "./${FILENAME}" \
             "${UPLOAD_URL}"
 
           
