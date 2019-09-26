@@ -186,5 +186,5 @@ modules.xml
 .idea/sonarlint
 
 ### CUSTOM ###
-
+.hide
 build

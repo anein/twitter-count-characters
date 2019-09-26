@@ -15,7 +15,8 @@
     "lint": "yarn tslint & yarn stylelint",
     "fix": "yarn tslint:fix & yarn stylelint:fix",
     "format": "pretty-quick & yarn stylelint:fix",
-    "clean": "yarn run rimraf ./build"
+    "clean": "yarn run rimraf ./build",
+    "publish": "webstore upload --source ./build --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN"
   },
   "lint-staged": {
     "*.ts": "tslint",
@@ -45,6 +46,7 @@
     "webpack-merge": "^4.2.2"
   },
   "devDependencies": {
+    "chrome-webstore-upload-cli": "^1.2.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
