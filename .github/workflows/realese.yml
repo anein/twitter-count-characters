@@ -33,5 +33,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
-          TAG_VERSION: ${{ TAG_VERSION }}
         run: ./.github/scripts/release_uploader.sh
