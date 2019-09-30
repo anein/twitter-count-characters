@@ -56,6 +56,8 @@ response=$(curl   -d "{'tag_version': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}
                   "${RELEASE_URL}"
               )
 
+echo "$response \n"
+
 readarray -t tuple <<<"$response"
 
 message=$(echo "${tuple[0]}" | jq '.message')
