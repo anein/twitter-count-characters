@@ -1,6 +1,8 @@
 #!/bin/bash
 
-if [ -n "$TAG_VERSION" ]; then
+echo $TAG_VERSION;
+
+if [ -z "$TAG_VERSION" ]; then
   echo ::error "Variable TAG_VERSION is empty"
   exit
 fi
