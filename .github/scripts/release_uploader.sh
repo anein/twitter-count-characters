@@ -56,15 +56,15 @@ response=$(curl   -d "{'tag_version': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}
                   "${RELEASE_URL}"
               )
 
-echo "$response"
-
 readarray -t tuple <<<"$response"
 
-message=$(echo "${tuple[0]}" | jq '.message')
-status="${tuple[1]}"
+echo "\n ${tuple[1]} \n ${tuple[1]} "
 
+status="${tuple[1]}"
 echo "Status: ${status}"
-echo "Body: ${message}"
+
+message=$(echo "${tuple[0]}" | jq '.message')
+echo "Message: ${message}"
 
 if [ "$status" -ge 400 ]; then
       echo ::error::"${message}"
