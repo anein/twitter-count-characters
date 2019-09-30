@@ -15,48 +15,22 @@ jobs:
       - uses: actions/checkout@v1
       - name: Start building
         run: echo The ${{ github.event_name }} event triggered this step.
-        
+
       - name: Run Install
         run: yarn install
-        
+
       - name: Run Building
         run: yarn build
-        
+
       - name: Run pack
         run: |
           # TAG_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`) || { echo "\⛔️ Unable to get a tag.\n"; exit 1;  };
           TAG_VERSION=2.0.0
           echo ::set-env name=TAG_VERSION::${TAG_VERSION}
           zip -r twitter_counter.$TAG_VERSION.zip build/
-          
+
       - name: Upload realese
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: "anein/twitter-count-characters"
-        run: |
-          FILENAME=twitter_counter.$TAG_VERSION.zip
-          # Prepare the headers
-          AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
-          CONTENT_LENGTH_HEADER="Content-Length: $(stat -c%s "./$FILENAME")"
-          CONTENT_TYPE_HEADER="Content-Type: application/zip"
-
-          # Build the Upload URL from the various pieces
-          # RELEASE_ID=$(jq --raw-output '.release.id' $GITHUB_EVENT_PATH)
-          
-          UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${TAG_VERSION}/assets?name=${FILENAME}"
-          echo "$UPLOAD_URL"
-
-          # Upload the file
-          curl \
-            -sSL \
-            -XPOST \
-            -d "{'tag_version': '$TAG_VERSION'}" \
-            -H "${AUTH_HEADER}" \
-            -H "${CONTENT_LENGTH_HEADER}" \
-            -H "${CONTENT_TYPE_HEADER}" \
-            --upload-file "./${FILENAME}" \
-            "${UPLOAD_URL}"
-
-          
-        
-          
+          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+        run: ./.github/scripts/release_uploader.sh
