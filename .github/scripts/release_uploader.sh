@@ -48,7 +48,7 @@ UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${TAG
 
 
 response=$(curl   -d "{'tag_version': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}', 'body': 'Description'}" \
-                  -w '\n%{http_code}\n' \
+                  -w '\n%{http_code}' \
                   -s \
                   -sSL \
                   -X POST \
@@ -56,7 +56,7 @@ response=$(curl   -d "{'tag_version': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}
                   "${RELEASE_URL}"
               )
 
-echo "$response \n"
+echo "$response"
 
 readarray -t tuple <<<"$response"
 
