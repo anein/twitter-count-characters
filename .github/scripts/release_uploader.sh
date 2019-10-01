@@ -29,7 +29,8 @@ response=$(curl   -d @<(
             {
               "tag_name": "${TAG_VERSION}",
               "name": "v${TAG_VERSION}",
-              "body": "Description"
+              "body": "Description",
+              "draft": true
             }
 EOF
 ) \
@@ -64,7 +65,7 @@ response=$(
         -H "${AUTH_HEADER}" \
         -H "${CONTENT_LENGTH_HEADER}" \
         -H "${CONTENT_TYPE_HEADER}" \
-        --data-binary @"./${FILENAME}" \
+        --data-binary @"${FILENAME}" \
         "${UPLOAD_URL}"
 )
 
