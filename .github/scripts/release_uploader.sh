@@ -61,7 +61,7 @@ release_id="$(echo "${body}" | jq '.id')"
 UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${release_id}/assets?name=${FILENAME}"
 
 response=$(
-    curl -w '%{http_code}\n' \
+    curl -w '\n%{http_code}\n' \
         -s \
         -sSL \
         -X POST \
@@ -71,6 +71,8 @@ response=$(
         --data-binary @"${FILENAME}" \
         "${UPLOAD_URL}"
 )
+
+echo "${response}"
 
 status="${response##*$'\n'}"
 body="${response%$status}"
