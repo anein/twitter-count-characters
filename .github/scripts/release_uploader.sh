@@ -1,28 +1,4 @@
 #!/bin/bash
-#
-#function request() {
-#    response=$(curl "$@" \
-#                    -w '\n%{http_code}\n' \
-#                    -s \
-#                    -sSL \
-#                    -X POST \
-#                    -H "${AUTH_HEADER}" \
-#              )
-#
-#    readarray -t tuple <<<"$response"
-#
-#    message=$(echo "${tuple[0]}" | jq '.message')
-#    status="${tuple[1]}"
-#
-#    echo "Status: ${status}"
-#    echo "Body: ${message}"
-#
-#    if [ "$status" -ge 400 ]; then
-#      echo ::error::"${message}"
-#      exit;
-#    fi
-#}
-
 
 if [ -z "$TAG_VERSION" ]; then
   echo ::error::"Variable TAG_VERSION is empty"
@@ -67,6 +43,7 @@ message=$(echo "${tuple[0]}" | jq '.message')
 echo "Message: ${message}"
 
 if [ "$status" -ge 400 ]; then
+      printf "Error Message"
       echo ::error::"${message}"
       exit;
 fi
