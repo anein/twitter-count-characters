@@ -34,7 +34,7 @@ response=$(curl   -d "{'tag_version': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}
 
 readarray -t tuple <<<"$response"
 
-echo "\n ${tuple[1]} \n ${tuple[1]} "
+echo "\n ${tuple[0]} \n ${tuple[1]} "
 
 status="${tuple[1]}"
 echo "\n Status: ${status}"
