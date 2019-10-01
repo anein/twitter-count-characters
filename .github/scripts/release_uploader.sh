@@ -57,15 +57,14 @@ fi
 echo ::warning::"Upload the release file.URL ${UPLOAD_URL}"
 
 response=$(
-    curl -d \
-        -w '%{http_code}\n' \
+    curl -w '%{http_code}\n' \
         -s \
         -sSL \
         -X POST \
         -H "${AUTH_HEADER}" \
         -H "${CONTENT_LENGTH_HEADER}" \
         -H "${CONTENT_TYPE_HEADER}" \
-        --data-binary @"${FILENAME}" \
+        --data-binary @"./${FILENAME}" \
         "${UPLOAD_URL}"
 )
 
@@ -79,4 +78,3 @@ if [ "$status" -ge 400 ]; then
 else
     echo ::warning::"The release file was successfuly uploaded. ${TAG_VERSION}"
 fi
-
