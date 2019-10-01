@@ -37,7 +37,7 @@ readarray -t tuple <<<"$response"
 echo "\n ${tuple[1]} \n ${tuple[1]} "
 
 status="${tuple[1]}"
-echo "Status: ${status}"
+echo "\n Status: ${status}"
 
 message=$(echo "${tuple[0]}" | jq '.message')
 echo "Message: ${message}"
