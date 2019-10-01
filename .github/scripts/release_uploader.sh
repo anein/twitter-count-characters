@@ -22,8 +22,9 @@ CONTENT_TYPE_HEADER="Content-Type: application/zip"
 RELEASE_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/releases"
 UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${TAG_VERSION}/assets?name=${FILENAME}"
 
+echo ::warning::"Create release. URL ${RELEASE_URL}"
 # create a release tag
-response=$(curl   -d "{'tag_version': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}', 'body': 'Description'}" \
+response=$(curl   -d "{'tag_name': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}', 'body': 'Description'}" \
                   -w '%{http_code}\n' \
                   -s \
                   -sSL \
