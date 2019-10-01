@@ -1,16 +1,16 @@
 #!/bin/bash
 
 if [ -z "$TAG_VERSION" ]; then
-  echo ::error::"Variable TAG_VERSION is empty"
-  exit
+    echo ::error::"Variable TAG_VERSION is empty"
+    exit
 fi
 
 FILENAME=twitter_counter.$TAG_VERSION.zip
 
 # Check if the release file exists
 if [ ! -f "$FILENAME" ]; then
-  echo ::error::"File $FILENAME doesn't exist"
-  exist
+    echo ::error::"File $FILENAME doesn't exist"
+    exist
 fi
 
 # Prepare the headers
@@ -20,12 +20,12 @@ CONTENT_TYPE_HEADER="Content-Type: application/zip"
 
 # set URLs
 RELEASE_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/releases"
-UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${TAG_VERSION}/assets?name=${FILENAME}"
 
-echo ::warning::"Create release. URL ${RELEASE_URL}"
+echo ::warning::" 🎉 Create a release."
 # create a release tag
-response=$(curl   -d @<(
-    cat <<EOF
+response=$(
+    curl -d @<(
+        cat <<EOF
             {
               "tag_name": "${TAG_VERSION}",
               "name": "v${TAG_VERSION}",
@@ -33,15 +33,15 @@ response=$(curl   -d @<(
               "draft": true
             }
 EOF
-) \
-                  -w '%{http_code}\n' \
-                  -s \
-                  -sSL \
-                  -X POST \
-                  -H "${AUTH_HEADER}" \
-                  -H "Content-Type: application/json" \
-                  "${RELEASE_URL}"
-              )
+    ) \
+        -w '%{http_code}\n' \
+        -s \
+        -sSL \
+        -X POST \
+        -H "${AUTH_HEADER}" \
+        -H "Content-Type: application/json" \
+        "${RELEASE_URL}"
+)
 
 status="${response##*$'\n'}"
 body="${response%$status}"
@@ -51,11 +51,11 @@ if [ "$status" -ge 400 ]; then
     echo ::error::"${message}"
     exit
 else
-    echo ::warning::"Release was successfuly created. ${TAG_VERSION}"
+    echo ::warning::" ✔ Release was successfuly created. ${TAG_VERSION}"
 fi
 
 # Upload the file
-echo ::warning::"🗄️ Upload the release file."
+echo ::warning::" 🗄️ Upload the release file."
 
 release_id="$(echo "${body}" | jq '.id')"
 UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${release_id}/assets?name=${FILENAME}"
@@ -72,8 +72,6 @@ response=$(
         "${UPLOAD_URL}"
 )
 
-echo "${response}"
-
 status="${response##*$'\n'}"
 body="${response%$status}"
 message="$(echo "${body}" | jq '.message')"
@@ -82,6 +80,5 @@ if [ "$status" -ge 400 ]; then
     echo ::error::"${message}"
     exit
 else
-    echo ::warning::"The release file was successfuly uploaded. ${TAG_VERSION}"
+    echo ::warning::" ✔️The release file was successfuly uploaded. ${TAG_VERSION}"
 fi
-
