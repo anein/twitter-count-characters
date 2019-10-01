@@ -24,7 +24,7 @@ UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${TAG
 
 
 response=$(curl   -d "{'tag_version': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}', 'body': 'Description'}" \
-                  -w '\n%{http_code}' \
+                  -w '%{http_code}\n' \
                   -s \
                   -sSL \
                   -X POST \
