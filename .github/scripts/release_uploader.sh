@@ -29,8 +29,7 @@ response=$(
             {
               "tag_name": "${TAG_VERSION}",
               "name": "v${TAG_VERSION}",
-              "body": "Description",
-              "draft": true
+              "body": "Description"
             }
 EOF
     ) \
