@@ -24,7 +24,15 @@ UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${TAG
 
 echo ::warning::"Create release. URL ${RELEASE_URL}"
 # create a release tag
-response=$(curl   -d "{'tag_name': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}', 'body': 'Description'}" \
+response=$(curl   -d @<(
+    cat <<EOF
+            {
+              "tag_name": "${TAG_VERSION}",
+              "name": "v${TAG_VERSION}",
+              "body": "Description"
+            }
+EOF
+) \
                   -w '%{http_code}\n' \
                   -s \
                   -sSL \
