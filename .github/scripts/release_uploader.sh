@@ -37,7 +37,7 @@ printf ""
 
 readarray -t tuple <<<"$response"
 
-echo "\n ${tuple[0]} \n ${tuple[1]} "
+echo "${tuple}"
 
 status="${tuple[1]}"
 echo "\n Status: ${status}"
