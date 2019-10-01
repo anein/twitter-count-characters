@@ -47,16 +47,36 @@ body="${response%$status}"
 message="$(echo "${body}" | jq '.message')"
 
 if [ "$status" -ge 400 ]; then
-      echo ::error::"${message}"
-      exit;
+    echo ::error::"${message}"
+    exit
+else
+    echo ::warning::"Release was successfuly created. ${TAG_VERSION}"
 fi
 
 # Upload the file
-curl \
-  -sSL \
-  -XPOST \
-  -H "${AUTH_HEADER}" \
-  -H "${CONTENT_LENGTH_HEADER}" \
-  -H "${CONTENT_TYPE_HEADER}" \
-  --data-binary @FILENAME \
-  "${UPLOAD_URL}"
+echo ::warning::"Upload the release file.URL ${UPLOAD_URL}"
+
+response=$(
+    curl -d \
+        -w '%{http_code}\n' \
+        -s \
+        -sSL \
+        -X POST \
+        -H "${AUTH_HEADER}" \
+        -H "${CONTENT_LENGTH_HEADER}" \
+        -H "${CONTENT_TYPE_HEADER}" \
+        --data-binary @"${FILENAME}" \
+        "${UPLOAD_URL}"
+)
+
+status="${response##*$'\n'}"
+body="${response%$status}"
+message="$(echo "${body}" | jq '.message')"
+
+if [ "$status" -ge 400 ]; then
+    echo ::error::"${message}"
+    exit
+else
+    echo ::warning::"The release file was successfuly uploaded. ${TAG_VERSION}"
+fi
+
