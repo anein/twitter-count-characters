@@ -31,6 +31,9 @@ response=$(curl   -d "{'tag_version': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}
                   -H "${AUTH_HEADER}" \
                   "${RELEASE_URL}"
               )
+printf ""
+echo "$response"
+printf ""
 
 readarray -t tuple <<<"$response"
 
