@@ -55,7 +55,10 @@ else
 fi
 
 # Upload the file
-echo ::warning::"Upload the release file.URL ${UPLOAD_URL}"
+echo ::warning::"🗄️ Upload the release file."
+
+release_id="$(echo "${body}" | jq '.id')"
+UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${release_id}/assets?name=${FILENAME}"
 
 response=$(
     curl -w '%{http_code}\n' \
@@ -79,3 +82,4 @@ if [ "$status" -ge 400 ]; then
 else
     echo ::warning::"The release file was successfuly uploaded. ${TAG_VERSION}"
 fi
+
