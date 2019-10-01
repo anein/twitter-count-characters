@@ -31,18 +31,15 @@ response=$(curl   -d "{'tag_version': '${TAG_VERSION}', 'name': 'v${TAG_VERSION}
                   -H "${AUTH_HEADER}" \
                   "${RELEASE_URL}"
               )
-printf ""
 echo "$response"
 printf ""
 
-readarray -t tuple <<<"$response"
+status="${response##*$'\n'}"
+echo "Status: ${status}"
 
-echo "${tuple}"
+body="${response%$status}"
 
-status="${tuple[1]}"
-echo "\n Status: ${status}"
-
-message=$(echo "${tuple[0]}" | jq '.message')
+message="$(echo "${body}" | jq '.message')"
 echo "Message: ${message}"
 
 if [ "$status" -ge 400 ]; then
