@@ -1,4 +1,4 @@
-name: Realese Action
+name: Release Action
 
 on:
   push:
