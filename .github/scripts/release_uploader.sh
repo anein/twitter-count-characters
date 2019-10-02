@@ -28,7 +28,7 @@ response=$(
         cat <<EOF
             {
               "tag_name": "${TAG_VERSION}",
-              "name": "v${TAG_VERSION}",
+              "name": "${TAG_VERSION}",
               "body": "Description"
             }
 EOF
