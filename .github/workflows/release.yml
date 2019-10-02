@@ -13,7 +13,7 @@ jobs:
 
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+      GITHUB_REPOSITORY: "anein/twitter-count-characters"
 
     steps:
       - uses: actions/checkout@v1
