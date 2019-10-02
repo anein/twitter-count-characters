@@ -11,7 +11,7 @@ CONTENT_TYPE_HEADER="Content-Type: application/json"
 
 # set URLs
 RELEASE_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/releases"
-echo "${RELEASE_URL}"
+
 # create a release tag
 echo ::warning::" 🎉 Create a release."
 
@@ -20,7 +20,7 @@ response=$(
     cat <<EOF
             {
               "tag_name": "${TAG_VERSION}",
-              "name": "${TAG_VERSION}",
+              "name": "${TAG_VERSION}"
             }
 EOF
   ) \
@@ -32,8 +32,6 @@ EOF
     -H "${CONTENT_TYPE_HEADER}" \
     "${RELEASE_URL}"
 )
-
-echo "${response}"
 
 status="${response##*$'\n'}"
 body="${response%$status}"
