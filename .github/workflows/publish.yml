@@ -1,0 +1,32 @@
+name: Release Action
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Start building
+        run: echo The ${{ github.event_name }} event triggered this step.
+
+      - name: Run Install
+        run: yarn install
+
+      - name: Run Building
+        if: success()
+        run: yarn build
+
+      - name: Publish extension
+        if: success()
+        env:
+          EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+        run: |
+          yarn run webstore upload --source ./build --extension-id ::add-mask::"$EXTENSION_ID" --client-id ::add-mask::"$CLIENT_ID" --client-secret ::add-mask::"$CLIENT_SECRET" --refresh-token ::add-mask::"$REFRESH_TOKEN"
