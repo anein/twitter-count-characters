@@ -8,7 +8,7 @@ on:
       - v*
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
     env:
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
@@ -18,8 +18,6 @@ jobs:
   
     steps:
       - uses: actions/checkout@v1
-      - name: Start building
-        run: echo The ${{ github.event_name }} event triggered this step.
 
       - name: Run Install
         run: yarn install
@@ -30,5 +28,4 @@ jobs:
 
       - name: Publish extension
         if: success()
-        run: |
-          yarn run webstore upload --source ./build --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN
+        run: yarn run publish
