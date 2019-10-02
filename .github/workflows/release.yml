@@ -6,7 +6,7 @@ on:
       - v*
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,15 +18,18 @@ jobs:
         run: yarn install
 
       - name: Run Building
+        if: success()
         run: yarn build
 
       - name: Run Pack
+        if: success()
         run: |
           TAG_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`) || { echo "\⛔️ Unable to get a tag.\n"; exit 1;  };
-          echo ::set-env name=TAG_VERSION::${TAG_VERSION}
+          ::set-env name=TAG_VERSION::${TAG_VERSION}
           zip -r twitter_counter.$TAG_VERSION.zip build/
 
       - name: Upload release
+        if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
