@@ -31,4 +31,4 @@ jobs:
       - name: Publish extension
         if: success()
         run: |
-          yarn run webstore upload --source ./build --extension-id $EXTENSION_ID --client-id "$( echo ::add-mask::$CLIENT_ID )" --client-secret "$( echo ::add-mask::$CLIENT_SECRET )" --refresh-token "$( echo ::add-mask::$REFRESH_TOKEN )"
+          yarn run webstore upload --source ./build --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN
