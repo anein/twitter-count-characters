@@ -2,6 +2,8 @@ name: Release Action
 
 on:
   push:
+    branches: 
+      - master
     tags:
       - v*
 
