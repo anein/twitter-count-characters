@@ -1,16 +1,16 @@
 #!/bin/bash
 
-if [ -z "$TAG_VERSION" ]; then
-    echo ::error::"Variable TAG_VERSION is empty"
-    exit
+if [ -z "$RELEASE_ID" ]; then
+  echo ::error::"Variable RELEASE_ID is empty"
+  exit 1
 fi
 
 FILENAME=twitter_counter.$TAG_VERSION.zip
 
 # Check if the release file exists
 if [ ! -f "$FILENAME" ]; then
-    echo ::error::"File $FILENAME doesn't exist"
-    exist
+  echo ::error::"File $FILENAME doesn't exist"
+  exit 1
 fi
 
 # Prepare the headers
@@ -18,66 +18,30 @@ AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 CONTENT_LENGTH_HEADER="Content-Length: $(stat -c%s "./$FILENAME")"
 CONTENT_TYPE_HEADER="Content-Type: application/zip"
 
-# set URLs
-RELEASE_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/releases"
-
-echo ::warning::" 🎉 Create a release."
-# create a release tag
-response=$(
-    curl -d @<(
-        cat <<EOF
-            {
-              "tag_name": "${TAG_VERSION}",
-              "name": "${TAG_VERSION}",
-              "body": "Description"
-            }
-EOF
-    ) \
-        -w '%{http_code}\n' \
-        -s \
-        -sSL \
-        -X POST \
-        -H "${AUTH_HEADER}" \
-        -H "Content-Type: application/json" \
-        "${RELEASE_URL}"
-)
-
-status="${response##*$'\n'}"
-body="${response%$status}"
-message="$(echo "${body}" | jq '.message')"
-
-if [ "$status" -ge 400 ]; then
-    echo ::error::"${message}"
-    exit
-else
-    echo ::warning::" ✔ Release was successfuly created. ${TAG_VERSION}"
-fi
-
 # Upload the file
 echo ::warning::" 🗄️ Upload the release file."
 
-release_id="$(echo "${body}" | jq '.id')"
-UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${release_id}/assets?name=${FILENAME}"
+UPLOAD_URL="https://uploads.github.com/repos/${GITHUB_REPOSITORY}/releases/${RELEASE_ID}/assets?name=${FILENAME}"
 
 response=$(
-    curl -w '\n%{http_code}\n' \
-        -s \
-        -sSL \
-        -X POST \
-        -H "${AUTH_HEADER}" \
-        -H "${CONTENT_LENGTH_HEADER}" \
-        -H "${CONTENT_TYPE_HEADER}" \
-        --data-binary @"${FILENAME}" \
-        "${UPLOAD_URL}"
+  curl -w '\n%{http_code}\n' \
+    -s \
+    -sSL \
+    -X POST \
+    -H "${AUTH_HEADER}" \
+    -H "${CONTENT_LENGTH_HEADER}" \
+    -H "${CONTENT_TYPE_HEADER}" \
+    --data-binary @"${FILENAME}" \
+    "${UPLOAD_URL}"
 )
 
 status="${response##*$'\n'}"
 body="${response%$status}"
-message="$(echo "${body}" | jq '.message')"
 
 if [ "$status" -ge 400 ]; then
-    echo ::error::"${message}"
-    exit
-else
-    echo ::warning::" ✔️The release file was successfuly uploaded. ${TAG_VERSION}"
+  message="$(echo "${body}" | jq '.message')"
+  echo ::error::"${message}"
+  exit 1
 fi
+
+echo ::warning::" ✔️The release file was successfuly uploaded. ${TAG_VERSION}"
