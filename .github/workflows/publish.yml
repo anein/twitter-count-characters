@@ -2,8 +2,6 @@ name: Publish Action
 
 on:
   push:
-    branches:
-      - master
     tags:
       - v*
 
@@ -11,11 +9,11 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-          EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
-  
+      EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+
     steps:
       - uses: actions/checkout@v1
 
