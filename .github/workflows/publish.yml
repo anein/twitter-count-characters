@@ -31,4 +31,4 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
         run: |
-          yarn run webstore upload --source ./build --extension-id $( echo ::add-mask::"$EXTENSION_ID") --client-id $( echo ::add-mask::"$CLIENT_ID") --client-secret $( echo ::add-mask::"$CLIENT_SECRET") --refresh-token $( echo ::add-mask::"$REFRESH_TOKEN")
+          yarn run webstore upload --source ./build --extension-id "$( echo ::add-mask::$EXTENSION_ID )" --client-id "$( echo ::add-mask::$CLIENT_ID )" --client-secret "$( echo ::add-mask::$CLIENT_SECRET )" --refresh-token "$( echo ::add-mask::$REFRESH_TOKEN )"
