@@ -33,6 +33,8 @@ EOF
     "${RELEASE_URL}"
 )
 
+echo "${response}"
+
 status="${response##*$'\n'}"
 body="${response%$status}"
 
