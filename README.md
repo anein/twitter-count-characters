@@ -1,12 +1,9 @@
 # 280 Twitter Counter
 
-✔️ Tweetdeck
-✔️ Mobile version
+280 Twitter Counter Extension adds the character counter into your tweet form, warns you about the 140 character limit and provides the opportunity to show or hide the circle. The extension is compatible with **TweetDeck** and standard **Web Client**  
 
-The extension adds the character counter into your tweet form, warns you about the 140 character limit and provides the opportunity to show or hide the circle.
 
 ## Preview
-> Mobile version
 
 ![](https://lh3.googleusercontent.com/nsulw6AFq27yNQIbtvhZPjupjp970ttoXYTahwnxXjp_wgvFA13I8Cl6GO0WBpS_CJnsp0UJQA=w640-h400-e365)
 
