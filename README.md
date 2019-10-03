@@ -1,15 +1,14 @@
 # Bring the character counter back, immediately!
 ✔️ Tweetdeck
 ✔️ Mobile version
-✔️ Web version
-> This chrome extension displays the remaining number of characters that you can squeeze into a tweet, and doesn't remove the circle indicator.
 
-
+> The extension adds the character counter into your tweet form, warns you about the 140 character limit and provides the opportunity to show or hide the circle.
 
 ## Preview
 > Mobile version
 
 ![](https://lh3.googleusercontent.com/nsulw6AFq27yNQIbtvhZPjupjp970ttoXYTahwnxXjp_wgvFA13I8Cl6GO0WBpS_CJnsp0UJQA=w640-h400-e365)
+
 ## Build and Pack 
 
 First things first, to build the extension, we should install the project dependencies:
