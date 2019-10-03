@@ -3,6 +3,10 @@
 
 280 Twitter Counter Extension adds the character counter into your tweet form, warns you about the 140 character limit and provides the opportunity to show or hide the circle. 
 
+[![](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png)](https://chrome.google.com/webstore/detail/old-school-twitter/ieemcojejhalpakennbgfjeinfakibck)
+[![](https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_1.png)](https://chrome.google.com/webstore/detail/old-school-twitter/ieemcojejhalpakennbgfjeinfakibck)
+
+
 ## Preview
 
 The extension is compatible with **TweetDeck** and standard **Web Client**.  
