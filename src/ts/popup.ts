@@ -37,8 +37,8 @@ import { Sender } from '@/base/senders';
 
     // store our settings;
     chrome.storage.sync.set({ limit, circle }, () => {
-      chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-        chrome.tabs.sendMessage(tabs[0].id, { from: Sender.POPUP, data: { limit, circle } });
+      chrome.tabs.query({ url: ['*://tweetdeck.twitter.com/*', '*://twitter.com/*'] }, tabs => {
+        tabs.forEach(tab => chrome.tabs.sendMessage(tab.id, { from: Sender.POPUP, data: { limit, circle } }));
       });
     });
   }

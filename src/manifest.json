@@ -33,5 +33,5 @@
     "default_title": "__MSG_ext_name__",
     "default_popup": "html/popup.html"
   },
-  "permissions": ["storage"]
+  "permissions": ["storage", "tabs"]
 }
