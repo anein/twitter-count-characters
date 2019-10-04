@@ -1,18 +1,24 @@
-# Bring the character counter back, immediately!
-✔️ Tweetdeck
-✔️ Mobile version
-✔️ Web version
-> This chrome extension displays the remaining number of characters that you can squeeze into a tweet, and doesn't remove the circle indicator.
+# 280 Twitter Counter
 
+![ipromo-256](https://user-images.githubusercontent.com/435658/66169161-1e2fe580-e648-11e9-836e-5c8a9b0cb9c0.png)
+
+
+280 Twitter Counter Extension adds the character counter into your tweet form, warns you about the 140 character limit and provides the opportunity to show or hide the circle. 
+
+[![](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png)](https://chrome.google.com/webstore/detail/old-school-twitter/ieemcojejhalpakennbgfjeinfakibck)
+[![](https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_1.png)](https://chrome.google.com/webstore/detail/old-school-twitter/ieemcojejhalpakennbgfjeinfakibck)
 
 
 ## Preview
-> Mobile version
 
-![](https://lh3.googleusercontent.com/nsulw6AFq27yNQIbtvhZPjupjp970ttoXYTahwnxXjp_wgvFA13I8Cl6GO0WBpS_CJnsp0UJQA=w640-h400-e365)
+The extension is compatible with **TweetDeck** and standard **Web Client**.  
+
+![](https://user-images.githubusercontent.com/435658/66168316-a660bb80-e645-11e9-89cf-ce6c7ad24e6a.png)
+
+
 ## Build and Pack 
 
-First things first, to build the extension, we should install the project dependencies:
+If you prefer to build the extension from source code, First things first, we should install the project dependencies:
 
 ```sh
 yarn install
