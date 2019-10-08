@@ -1,3 +1,5 @@
+import { Browser } from '@/services/Browser';
+import { Store } from '@/services/storage/Storage';
 import { IConfig } from '@base/interface/config';
 import { IMessage } from '@base/interface/message';
 import { Sender } from '@base/senders';
@@ -9,7 +11,7 @@ import { ListenerFactory } from '@content/factory';
   /**
    * Get saved options and run our factory.
    */
-  chrome.storage.sync.get((items: IConfig) => {
+  Store.get((items: IConfig) => {
     const { limit = false, circle = false } = { ...items };
 
     creator = new ListenerFactory();
@@ -24,7 +26,7 @@ import { ListenerFactory } from '@content/factory';
   /**
    * Listens the message from the POPUP panel.
    */
-  chrome.runtime.onMessage.addListener((message: IMessage) => {
+  Browser.runtime.onMessage.addListener((message: IMessage) => {
     if (message.from === Sender.POPUP) {
       creator.config = message.data;
       creator.updateOptions();

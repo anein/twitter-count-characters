@@ -68,6 +68,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-microsoft-contrib": "^6.2.0",
     "tslint-plugin-prettier": "^2.0.1",
+    "web-ext-types": "^3.2.1",
     "webpack-cli": "^3.3.9",
     "webpack-extension-reloader": "^1.1.1",
     "webpack-messages": "^2.0.4"

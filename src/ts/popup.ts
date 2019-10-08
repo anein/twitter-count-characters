@@ -1,4 +1,5 @@
 import { Sender } from '@/base/senders';
+import { Store } from '@/services/storage/Storage';
 
 (() => {
   // get basic elements
@@ -6,7 +7,7 @@ import { Sender } from '@/base/senders';
   const circleElement = document.getElementById('tweet.circles') as HTMLInputElement;
 
   // get the initial state for the elements.
-  chrome.storage.sync.get(items => {
+  Store.get(items => {
     const { limit = false, circle = false } = { ...items };
 
     limitElement.checked = limit;
@@ -36,7 +37,8 @@ import { Sender } from '@/base/senders';
     const circle = circleElement.checked;
 
     // store our settings;
-    chrome.storage.sync.set({ limit, circle }, () => {
+    Store.set({ limit, circle }, () => {
+      // send new options to twitter tabs only.
       chrome.tabs.query({ url: ['*://tweetdeck.twitter.com/*', '*://twitter.com/*'] }, tabs => {
         tabs.forEach(tab => chrome.tabs.sendMessage(tab.id, { from: Sender.POPUP, data: { limit, circle } }));
       });

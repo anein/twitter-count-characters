@@ -22,7 +22,7 @@
       "@content/*": ["ts/content/*"],
       "@base/*": ["ts/base/*"]
     },
-    "typeRoots": ["../../node_modules/@types"]
+    "typeRoots": ["../../node_modules/@types", "../../node_modules/web-ext-types"]
   },
   "exclude": ["node_modules"],
   "include": ["./**/*"]
